@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Bowl — CMU Capstone 2026</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-logo">Team Bowl</span>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#system">System</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#downloads">Downloads</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-label">CMU Capstone 2026</p>
+        <h1>Team Bowl</h1>
+        <p class="hero-sub">
+          A legged-wheeled autonomous robot platform designed for robust
+          locomotion, real-time perception, and safe human-adjacent operation.
+        </p>
+        <div class="hero-buttons">
+          <a href="assets/docs/report.pdf" class="btn btn-primary" target="_blank">Read the Report</a>
+          <a href="assets/docs/slides.pdf" class="btn btn-secondary" target="_blank">View Slides</a>
+        </div>
+      </div>
+      <div class="hero-img">
+        <!-- Replace src with actual robot photo -->
+        <img src="assets/img/robot-hero.jpg" alt="Team Bowl robot" onerror="this.style.display='none'" />
+        <div class="hero-img-placeholder" id="hero-placeholder">
+          <span>Robot Photo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="section-inner">
+      <h2>Project Overview</h2>
+      <p class="section-intro">
+        Team Bowl is a six-legged wheeled robot platform built around a Jetson AGX Orin
+        compute module. It combines the stability of legged locomotion with the
+        efficiency of wheel-based driving, enabling versatile navigation across
+        unstructured terrain.
+      </p>
+      <div class="spec-grid">
+        <div class="spec-card">
+          <div class="spec-label">Compute</div>
+          <div class="spec-value">Jetson AGX Orin</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-label">Legs</div>
+          <div class="spec-value">6 × RS04 Joints</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-label">Drive</div>
+          <div class="spec-value">Wheel + Leg Hybrid</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-label">Perception</div>
+          <div class="spec-value">OAK-D Depth Camera</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-label">Framework</div>
+          <div class="spec-value">ROS 2</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-label">Simulation</div>
+          <div class="spec-value">MuJoCo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SYSTEM ARCHITECTURE -->
+  <section id="system" class="section-alt">
+    <div class="section-inner">
+      <h2>System Architecture</h2>
+      <p class="section-intro">
+        The robot is organized into modular ROS 2 packages spanning locomotion,
+        perception, safety, and autonomy. Each subsystem communicates over a
+        shared message bus with well-defined interfaces.
+      </p>
+
+      <div class="arch-img">
+        <!-- Replace with actual system diagram from report -->
+        <img src="assets/img/system-diagram.png" alt="System architecture diagram" onerror="this.style.display='none'" />
+        <div class="img-placeholder" id="arch-placeholder">System Architecture Diagram</div>
+      </div>
+
+      <div class="subsystem-grid">
+        <div class="subsystem-card">
+          <h3>Locomotion</h3>
+          <p>Leg controllers and velocity multiplexer coordinate six RS04 joints with wheel drive motors, managed by VESC motor controllers.</p>
+        </div>
+        <div class="subsystem-card">
+          <h3>Perception</h3>
+          <p>An OAK-D stereo depth camera provides real-time RGB-D data. A depthai-ros integration streams point clouds and obstacle data into the autonomy stack.</p>
+        </div>
+        <div class="subsystem-card">
+          <h3>Safety</h3>
+          <p>A hardware e-stop and software heartbeat monitor ensure safe operation. A collision guard layer prevents locomotion commands that would cause contact.</p>
+        </div>
+        <div class="subsystem-card">
+          <h3>State Estimation</h3>
+          <p>An Xsens MTi IMU provides 6-DOF orientation and acceleration. Fused with leg kinematics for reliable odometry on rough terrain.</p>
+        </div>
+        <div class="subsystem-card">
+          <h3>Planning</h3>
+          <p>Autonomous planning stack takes high-level goals and generates waypoints, obstacle-avoiding paths, and velocity commands.</p>
+        </div>
+        <div class="subsystem-card">
+          <h3>Simulation</h3>
+          <p>Full MuJoCo simulation environment mirrors the physical robot for rapid controller development and validation before hardware deployment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results">
+    <div class="section-inner">
+      <h2>Results</h2>
+      <p class="section-intro">
+        <!-- Fill in from report/slides -->
+        Key performance metrics and experimental results from testing.
+      </p>
+      <div class="results-gallery">
+        <!-- Add result images/graphs here — replace src with actual files -->
+        <figure>
+          <img src="assets/img/result-1.png" alt="Result figure 1" onerror="this.parentElement.style.display='none'" />
+          <figcaption><!-- Caption from report --></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/result-2.png" alt="Result figure 2" onerror="this.parentElement.style.display='none'" />
+          <figcaption><!-- Caption from report --></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/result-3.png" alt="Result figure 3" onerror="this.parentElement.style.display='none'" />
+          <figcaption><!-- Caption from report --></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" class="section-alt">
+    <div class="section-inner">
+      <h2>Team</h2>
+      <div class="team-grid">
+        <!-- Duplicate this card for each team member. Replace name/role/photo. -->
+        <div class="team-card">
+          <div class="team-photo-wrap">
+            <img src="assets/img/team-placeholder.jpg" alt="Team member" onerror="this.style.display='none'" />
+            <div class="team-photo-placeholder"></div>
+          </div>
+          <div class="team-name"><!-- Name --></div>
+          <div class="team-role"><!-- Role --></div>
+        </div>
+        <div class="team-card">
+          <div class="team-photo-wrap">
+            <img src="assets/img/team-placeholder.jpg" alt="Team member" onerror="this.style.display='none'" />
+            <div class="team-photo-placeholder"></div>
+          </div>
+          <div class="team-name"><!-- Name --></div>
+          <div class="team-role"><!-- Role --></div>
+        </div>
+        <div class="team-card">
+          <div class="team-photo-wrap">
+            <img src="assets/img/team-placeholder.jpg" alt="Team member" onerror="this.style.display='none'" />
+            <div class="team-photo-placeholder"></div>
+          </div>
+          <div class="team-name"><!-- Name --></div>
+          <div class="team-role"><!-- Role --></div>
+        </div>
+        <div class="team-card">
+          <div class="team-photo-wrap">
+            <img src="assets/img/team-placeholder.jpg" alt="Team member" onerror="this.style.display='none'" />
+            <div class="team-photo-placeholder"></div>
+          </div>
+          <div class="team-name"><!-- Name --></div>
+          <div class="team-role"><!-- Role --></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOADS -->
+  <section id="downloads">
+    <div class="section-inner downloads-inner">
+      <h2>Downloads</h2>
+      <div class="download-cards">
+        <a href="assets/docs/report.pdf" class="download-card" target="_blank">
+          <div class="download-icon">&#128196;</div>
+          <div class="download-title">Final Report</div>
+          <div class="download-sub">PDF &mdash; Full technical report</div>
+        </a>
+        <a href="assets/docs/slides.pdf" class="download-card" target="_blank">
+          <div class="download-icon">&#128203;</div>
+          <div class="download-title">Presentation Slides</div>
+          <div class="download-sub">PDF &mdash; Project overview slides</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <span>Team Bowl &mdash; Carnegie Mellon University &mdash; 2026</span>
+      <a href="https://github.com/ColeHerber" target="_blank">GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    // Hide hero image placeholder if image loads successfully
+    document.querySelector('.hero-img img')?.addEventListener('load', function() {
+      document.getElementById('hero-placeholder').style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>
