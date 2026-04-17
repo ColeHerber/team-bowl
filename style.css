@@ -181,6 +181,10 @@ tr:hover td { background: var(--bg-alt); }
 .data-table tr:last-child td { border-bottom: none; }
 .data-table tr:hover td { background: var(--bg-alt); }
 
+/* ─── Test photo grids ───────────────────────────────────────────────────── */
+.test-photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; margin-top: 0.75rem; }
+.test-photos .img-bordered img { height: 160px; object-fit: cover; width: 100%; }
+
 /* ─── Failure modes ──────────────────────────────────────────────────────── */
 .fm-table td:first-child { font-weight: 700; white-space: nowrap; }
 .severity-high { color: var(--fail); font-weight: 700; }
