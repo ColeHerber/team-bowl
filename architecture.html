@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>System Architecture — Team BoWL</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Team BoWL</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Overview</a></li>
+      <li><a href="problem.html">Problem</a></li>
+      <li><a href="requirements.html">Requirements</a></li>
+      <li><a href="concept.html">Concept</a></li>
+      <li><a href="architecture.html" class="active">Architecture</a></li>
+      <li><a href="design.html">Design</a></li>
+      <li><a href="testing.html">Testing</a></li>
+      <li><a href="report.html">Report</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <p class="eyebrow">System Architecture</p>
+    <h1>Hardware, software, and subsystems</h1>
+  </div>
+</div>
+
+<!-- HARDWARE ARCHITECTURE -->
+<section class="section">
+  <div class="section-inner">
+    <p class="eyebrow">Hardware Architecture</p>
+    <h2>Electrical &amp; mechanical design</h2>
+    <div class="grid-2" style="align-items:start; gap:2.5rem; margin-top:1rem">
+      <div>
+        <p style="margin-bottom:1rem">To design a robust yet streamlined system, the electrical architecture limits voltage buses to two defined levels:</p>
+        <div style="display:flex; flex-direction:column; gap:0.75rem; margin-bottom:1.25rem">
+          <div class="card" style="padding:1rem">
+            <h4 style="margin-bottom:0.25rem">Battery Bus</h4>
+            <p style="font-size:0.875rem; color:var(--text-sub)">24 V supplied from the battery and distributed to motors via the power distribution board. Voltage set by motor power supply requirements.</p>
+          </div>
+          <div class="card" style="padding:1rem">
+            <h4 style="margin-bottom:0.25rem">Compute Bus</h4>
+            <p style="font-size:0.875rem; color:var(--text-sub)">A stepped-down voltage via DC-DC converter powers the onboard Jetson AGX Orin computer and sensors. Standard voltage matched to the computer's operating range.</p>
+          </div>
+        </div>
+        <p style="color:var(--text-sub); font-size:0.9rem">Communication between hardware components is handled via <strong>Ethernet</strong> (sensor data) or <strong>CAN bus</strong> (motor commands and feedback), as determined by the communications trade study. This split matches bandwidth and latency requirements for each subsystem.</p>
+      </div>
+      <div class="img-bordered">
+        <img src="assets/img/arch-electrical.png" alt="Hardware/Electrical Architecture Diagram" />
+        <p class="img-caption">Mechanical/Electrical Hardware Architecture Diagram showing the 24 V battery bus, DC-DC conversion, power distribution, Ethernet sensor network, and CAN motor bus.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOFTWARE ARCHITECTURE -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <p class="eyebrow">Software Architecture</p>
+    <h2>ROS 2 node graph</h2>
+    <div class="img-bordered" style="margin-top:1rem">
+      <img src="assets/img/arch-software.png" alt="Software Architecture Diagram" />
+      <p class="img-caption">ROS 2 Software Architecture Diagram. Modules communicate through standardized topics and services. Perception nodes feed planning nodes, which command actuation nodes. Safety and teleoperation modules operate as cross-cutting concerns.</p>
+    </div>
+    <p style="color:var(--text-sub); margin-top:1.5rem; font-size:0.9rem">The software architecture defines how perception, decision-making, and actuation modules interact to achieve autonomous following and terrain-adaptive locomotion. The design emphasizes modularity: perception nodes process raw sensor streams into target poses and environment maps; planning nodes generate motion commands and decide between wheeling or walking; actuation nodes execute low-level motor control. Support modules for tele-operation, safety, status feedback, and logging ensure robustness and user trust.</p>
+
+    <div class="grid-2" style="margin-top:1.5rem; gap:1.5rem; align-items:start">
+      <div>
+        <h3 style="margin-bottom:0.75rem">Requirement Traceability</h3>
+        <ul style="font-size:0.875rem; color:var(--text-sub); display:flex; flex-direction:column; gap:0.5rem; padding-left:1.2rem">
+          <li>Safety supervisor → R-1.1 Virtual E-Stop, R-1.3 Status Indicators (ISO 12100, ISO 13482)</li>
+          <li>Decision &amp; Planning subsystem → R-4 Operational, R-5 Terrain Traversal</li>
+          <li>Local planner → R-5.2 Obstacle Avoidance</li>
+          <li>Mode Manager + Locomotion Manager → R-4.1 Indoor/Outdoor, R-5.1 Terrain Traversal</li>
+          <li>Perception + Decision → R-6.1 Autonomous Operation</li>
+          <li>Perception → R-7.1 Autonomous User Tracking</li>
+          <li>Teleop Server → R-6.2 Tele-operation Usage</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom:0.75rem">Deployment Plan</h3>
+        <p style="font-size:0.875rem; color:var(--text-sub); margin-bottom:0.75rem">All compute-intensive nodes run on the Jetson AGX Orin (primary onboard computer):</p>
+        <ul style="font-size:0.875rem; color:var(--text-sub); display:flex; flex-direction:column; gap:0.35rem; padding-left:1.2rem">
+          <li>Perception: sensor bridge, user tracker, obstacle detection, terrain assessor, state estimator</li>
+          <li>Planning/Decision: local planner, mode manager, locomotion manager</li>
+          <li>Support: teleop server, safety supervisor, status manager, data recorder</li>
+        </ul>
+        <p style="font-size:0.875rem; color:var(--text-sub); margin-top:0.75rem">Motor controllers (VESC) and servo drivers (RS04) operate as dedicated embedded controllers, connected via CAN bus and receiving commands from the Jetson.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBSYSTEM ARCHITECTURE -->
+<section class="section">
+  <div class="section-inner">
+    <p class="eyebrow">Subsystem Architecture</p>
+    <h2>Four functional blocks</h2>
+    <div class="img-bordered" style="margin-top:1rem">
+      <img src="assets/img/arch-subsystem.png" alt="Subsystem Architecture Block Diagram" />
+      <p class="img-caption">Subsystem Architecture Diagram. Four functional blocks — Perception, Decision, Locomotion, and HCI &amp; Safety — with labeled data flow arrows between them.</p>
+    </div>
+    <p style="color:var(--text-sub); margin-top:1.5rem; font-size:0.9rem">The subsystem architecture organizes the robot into four cohesive functional blocks. Each subsystem combines both hardware and software elements to deliver its function. Key interfaces: sensor data flows from Perception to Decision; motion commands flow from Decision to Locomotion; feedback on status and odometry flows back from Locomotion to Decision; user input and safety overrides flow from HCI &amp; Safety to both Decision and Locomotion.</p>
+
+    <div class="grid-auto" style="margin-top:1.5rem">
+
+      <div class="card">
+        <h3 style="margin-bottom:0.5rem">Perception</h3>
+        <p style="font-size:0.875rem; color:var(--text-sub); margin-bottom:0.75rem">Fuses data from the RGB-D camera, LiDAR, and IMU. Generates target poses, obstacle maps, and odometry estimates for the Decision subsystem.</p>
+        <ul style="font-size:0.8rem; color:var(--text-sub); padding-left:1.1rem; display:flex; flex-direction:column; gap:0.25rem">
+          <li>OAK-D RGB-D camera (user tracking)</li>
+          <li>3D LiDAR (obstacle detection)</li>
+          <li>Xsens MTi IMU (motion estimation)</li>
+          <li>User tracker node</li>
+          <li>Obstacle detection node</li>
+          <li>Terrain assessor node</li>
+          <li>State estimator node</li>
+        </ul>
+        <p style="font-size:0.78rem; color:var(--accent); margin-top:0.75rem">Satisfies R-7 User Following, R-5.2 Obstacle Avoidance, R-4.1 Indoor/Outdoor</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom:0.5rem">Decision</h3>
+        <p style="font-size:0.875rem; color:var(--text-sub); margin-bottom:0.75rem">Consumes perception output to assess terrain, plan reactive motion paths, and arbitrate between autonomous wheeled operation and tele-operated fallback.</p>
+        <ul style="font-size:0.8rem; color:var(--text-sub); padding-left:1.1rem; display:flex; flex-direction:column; gap:0.25rem">
+          <li>Local planner (reactive obstacle avoidance)</li>
+          <li>Mode manager (state machine)</li>
+          <li>Locomotion manager</li>
+          <li>Jetson AGX Orin (primary compute)</li>
+        </ul>
+        <p style="font-size:0.78rem; color:var(--accent); margin-top:0.75rem">Satisfies R-5 Terrain Traversal, R-6.1 Autonomous Operation, R-6.3 Speed Limits</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom:0.5rem">Locomotion</h3>
+        <p style="font-size:0.875rem; color:var(--text-sub); margin-bottom:0.75rem">Executes motion decisions through wheels and leg actuators, coordinated by embedded controllers that handle low-level drive commands.</p>
+        <ul style="font-size:0.8rem; color:var(--text-sub); padding-left:1.1rem; display:flex; flex-direction:column; gap:0.25rem">
+          <li>Two VESC wheel motor controllers</li>
+          <li>Two driven wheels + one stabilization wheel</li>
+          <li>RS04 servo joints (hip, knee, ankle × 2 legs)</li>
+          <li>CAN bus communication</li>
+        </ul>
+        <p style="font-size:0.78rem; color:var(--accent); margin-top:0.75rem">Satisfies R-3 Carrying Capacity, R-5.1 Terrain Traversal, R-9.2 Maintainability</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom:0.5rem">HCI &amp; Safety</h3>
+        <p style="font-size:0.875rem; color:var(--text-sub); margin-bottom:0.75rem">Provides the user interface, tele-operation capability, emergency stop functionality, and external status indicator outputs.</p>
+        <ul style="font-size:0.8rem; color:var(--text-sub); padding-left:1.1rem; display:flex; flex-direction:column; gap:0.25rem">
+          <li>Wireless E-Stop receiver</li>
+          <li>Physical E-Stop button</li>
+          <li>External status LED indicators</li>
+          <li>Tele-op server (ROS 2 node)</li>
+          <li>Remote controller interface (Wi-Fi)</li>
+        </ul>
+        <p style="font-size:0.78rem; color:var(--accent); margin-top:0.75rem">Satisfies R-1.1/R-1.2 E-Stop, R-1.3 Status Indicators, R-6.2 Tele-operation</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom:0.5rem">Power</h3>
+        <p style="font-size:0.875rem; color:var(--text-sub); margin-bottom:0.75rem">Regulates and distributes electricity to all electronic components. Manages battery state and provides safe power sequencing.</p>
+        <ul style="font-size:0.8rem; color:var(--text-sub); padding-left:1.1rem; display:flex; flex-direction:column; gap:0.25rem">
+          <li>24 V LiPo battery pack</li>
+          <li>Power distribution board</li>
+          <li>DC-DC converter (compute bus)</li>
+          <li>Physical power wiring &amp; fusing</li>
+          <li>Low-battery warning logic</li>
+        </ul>
+        <p style="font-size:0.78rem; color:var(--accent); margin-top:0.75rem">Satisfies R-8.1 Operation Duration, R-8.2 Operation Range</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom:0.5rem">Storage</h3>
+        <p style="font-size:0.875rem; color:var(--text-sub); margin-bottom:0.75rem">Holds the user's payload in a secure, accessible compartment with a motorized linear sliding lid that locks electronically while the robot is in motion.</p>
+        <ul style="font-size:0.8rem; color:var(--text-sub); padding-left:1.1rem; display:flex; flex-direction:column; gap:0.25rem">
+          <li>5-gallon cargo bay</li>
+          <li>Motorized linear sliding lid</li>
+          <li>Electronic locking mechanism</li>
+          <li>LiDAR mount integrated into lid</li>
+        </ul>
+        <p style="font-size:0.78rem; color:var(--accent); margin-top:0.75rem">Satisfies R-3.1 Cargo Volume, R-5.4 Locking Enclosure, R-12.2 User Accessibility</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer><div class="footer-inner"><span>Team BoWL &mdash; Carnegie Mellon University &mdash; 2026</span><a href="https://github.com/ColeHerber/team-bowl" target="_blank">GitHub</a></div></footer>
+</body>
+</html>

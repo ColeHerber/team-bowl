@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Problem Definition — Team BoWL</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Team BoWL</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Overview</a></li>
+      <li><a href="problem.html" class="active">Problem</a></li>
+      <li><a href="requirements.html">Requirements</a></li>
+      <li><a href="concept.html">Concept</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="design.html">Design</a></li>
+      <li><a href="testing.html">Testing</a></li>
+      <li><a href="report.html">Report</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <p class="eyebrow">Problem Definition</p>
+    <h1>Why does this robot need to exist?</h1>
+  </div>
+</div>
+
+<!-- PROBLEM STATEMENT -->
+<section class="section">
+  <div class="section-inner">
+    <p class="eyebrow">Problem Statement</p>
+    <h2>The burden of carrying a backpack</h2>
+    <div class="grid-2" style="align-items:start; gap:2.5rem; margin-top:1rem">
+      <div>
+        <p style="margin-bottom:1rem">On a typical university campus, students travel between buildings and classrooms carrying backpacks with bulky and heavy items, which can lead to undue strain on muscles and joints. Continuous backpack use may cause back, neck, and shoulder pain, along with extra pressure at the spine, knees, and hips. Over time, the use of a backpack can cause discomfort and reduces efficiency when travelling across campus.</p>
+        <p>We aim to develop a solution that relieves students of the physical burden of carrying a backpack on a university campus.</p>
+      </div>
+      <div class="img-bordered">
+        <img src="assets/img/robot-cargo.jpg" alt="User accessing robot cargo compartment" />
+        <p class="img-caption">User accessing the robot's cargo compartment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOTIVATION -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <p class="eyebrow">Motivation</p>
+    <h2>Extending the state of the art</h2>
+    <p class="lead" style="margin-top:0.5rem">A robotic backpack that follows its user addresses the issue of physical strain on students from carrying a heavy load. It improves accessibility by supporting mobility-impaired users who may have difficulty carrying a traditional backpack.</p>
+    <div class="grid-2" style="align-items:start; gap:2rem">
+      <div>
+        <h3>Why a campus?</h3>
+        <p style="margin-bottom:1rem; color:var(--text-sub)">On a university campus where students frequently transition between multiple buildings, a robotic solution is particularly well-suited because it can autonomously follow the user and adapt to dynamic environments. By focusing on a school campus, the robot addresses the challenge of adapting to obstacles in both indoor and outdoor terrain.</p>
+        <h3>Prior Art: Piaggio Gita</h3>
+        <p style="color:var(--text-sub)">The Piaggio Gita is an autonomous cargo robot that uses computer vision to follow a user while carrying modest payloads. However, it is limited by its wheeled design and only supports functionality on smooth, even terrain. Extending its capability to seamlessly transition between indoor and outdoor environments while navigating complex terrain results in a well-rounded product that can easily integrate into a campus environment.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:1rem">
+        <div class="card">
+          <h4 style="margin-bottom:0.5rem">🦽 Accessibility</h4>
+          <p style="font-size:0.875rem; color:var(--text-sub)">Supports mobility-impaired users who have difficulty carrying a traditional backpack across a spread-out campus.</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-bottom:0.5rem">🗺️ Mixed terrain</h4>
+          <p style="font-size:0.875rem; color:var(--text-sub)">Campus environments include smooth hallways, cracked sidewalks, curbs, and elevator thresholds — a challenge for purely wheeled solutions like the Piaggio Gita.</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-bottom:0.5rem">🤖 Autonomous adaptation</h4>
+          <p style="font-size:0.875rem; color:var(--text-sub)">The robot adapts to the user's real-time movements and schedule, allowing it to integrate naturally into their daily routine without constant intervention.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ASSUMPTIONS -->
+<section class="section">
+  <div class="section-inner">
+    <p class="eyebrow">Assumptions</p>
+    <h2>Operating conditions</h2>
+    <p class="lead" style="margin-top:0.5rem">These assumptions define the boundaries of our problem space and scope our requirements accordingly.</p>
+    <div class="grid-auto">
+      <div class="card">
+        <h3>A-1. Outdoor Weather</h3>
+        <ul style="font-size:0.875rem; color:var(--text-sub); padding-left:1.2rem; margin-top:0.5rem; display:flex; flex-direction:column; gap:0.3rem">
+          <li>Robot operated during daylight hours only</li>
+          <li>No precipitation, including puddles or snowbanks</li>
+          <li>No ice on the ground</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>A-2. Indoor Operation</h3>
+        <ul style="font-size:0.875rem; color:var(--text-sub); padding-left:1.2rem; margin-top:0.5rem; display:flex; flex-direction:column; gap:0.3rem">
+          <li>Robot will not be operated in darkness</li>
+          <li>Lighting sufficient for regular cameras</li>
+          <li>No liquids on the ground</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>A-3. Terrain Limitations</h3>
+        <p style="font-size:0.78rem; font-weight:600; color:var(--text-sub); margin:0.5rem 0 0.25rem">Rough terrain does NOT include:</p>
+        <ul style="font-size:0.875rem; color:var(--text-sub); padding-left:1.2rem; display:flex; flex-direction:column; gap:0.3rem">
+          <li>Potholes, sinkholes, manholes</li>
+          <li>Walls or vertical surfaces &gt;7.5 in</li>
+          <li>Sand, water, ice, or liquids</li>
+        </ul>
+        <p style="font-size:0.78rem; font-weight:600; color:var(--text-sub); margin:0.75rem 0 0.25rem">Rough terrain MAY include:</p>
+        <ul style="font-size:0.875rem; color:var(--text-sub); padding-left:1.2rem; display:flex; flex-direction:column; gap:0.3rem">
+          <li>Tile, carpet, concrete, asphalt</li>
+          <li>Sidewalk cracks or irregularities</li>
+          <li>Grass, dry leaves, small plants</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>A-4. User Following</h3>
+        <ul style="font-size:0.875rem; color:var(--text-sub); padding-left:1.2rem; margin-top:0.5rem; display:flex; flex-direction:column; gap:0.3rem">
+          <li>User will be walking (not biking, running, etc.)</li>
+          <li>User's speed will not exceed average walking pace</li>
+          <li>User will wait if the robot falls behind or gets stuck</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>A-5. Walking Speed</h3>
+        <p style="font-size:0.875rem; color:var(--text-sub); margin-top:0.5rem">Walking speed assumed to be approximately 3 miles per hour based on published averages.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <p class="eyebrow">Use Cases</p>
+    <h2>Six operational scenarios</h2>
+    <p class="lead" style="margin-top:0.5rem">These use cases define how the robot behaves in realistic operating conditions and guide the requirements derivation.</p>
+    <div class="grid-auto" style="margin-top:1rem">
+
+      <div class="usecase-card">
+        <h3>Scenario 1 — Transitions to Rough Terrain</h3>
+        <div class="usecase-meta"><span>Actors: User, sensing, motion</span><span>Dependency: Autonomous navigation</span></div>
+        <p>While following the user on smooth terrain, the robot encounters cracked or uneven ground. It evaluates terrain roughness and deploys its legs to assist traversal if necessary. Continues following user in the appropriate configuration.</p>
+      </div>
+
+      <div class="usecase-card">
+        <h3>Scenario 2 — Opens Storage Compartment</h3>
+        <div class="usecase-meta"><span>Actors: User, storage compartment</span><span>Dependency: Remote controller</span></div>
+        <p>The user unlocks the secure storage area. The robot transitions to a stable configuration. The locking mechanism opens, the user adds or removes items, and the compartment is locked again before the robot resumes movement.</p>
+      </div>
+
+      <div class="usecase-card">
+        <h3>Scenario 3 — Loses Track of User</h3>
+        <div class="usecase-meta"><span>Actors: User, sensing, motion</span><span>Dependency: Tele-op fallback</span></div>
+        <p>An obstacle, glare, or sensor issue causes the robot to lose track of the user. It initiates an autonomous search pattern. If the user is reacquired within 10 seconds, it resumes following. Otherwise it halts, signals a failure, and switches to tele-op.</p>
+      </div>
+
+      <div class="usecase-card">
+        <h3>Scenario 4 — Tele-Operated Mode</h3>
+        <div class="usecase-meta"><span>Actors: User, remote controller</span><span>Dependency: Tele-op control mode</span></div>
+        <p>The user activates tele-op mode and controls the robot directly via a remote interface. Autonomous commands have no effect. If connection is lost, the robot ceases all motion. The user can switch back to autonomous at any time.</p>
+      </div>
+
+      <div class="usecase-card">
+        <h3>Scenario 5 — Robot Gets Stuck</h3>
+        <div class="usecase-meta"><span>Actors: Sensing, motion</span><span>Dependency: Autonomous mode, odometry</span></div>
+        <p>The robot's wheels get stuck on an obstacle that didn't register as rough terrain. It detects the stall via odometry, enters rough-terrain mode to recover. If recovery fails, it enters a fatal-error state, halts, and waits for user intervention.</p>
+      </div>
+
+      <div class="usecase-card">
+        <h3>Scenario 6 — Autonomous Following</h3>
+        <div class="usecase-meta"><span>Actors: User, sensing, motion, obstacle avoidance</span><span>Dependency: Autonomous + user tracking</span></div>
+        <p>The robot identifies and tracks the user, maintains a specified following distance, scans the environment for obstacles, and continuously updates its path to follow the user safely around stationary and moving obstacles.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer><div class="footer-inner"><span>Team BoWL &mdash; Carnegie Mellon University &mdash; 2026</span><a href="https://github.com/ColeHerber/team-bowl" target="_blank">GitHub</a></div></footer>
+</body>
+</html>

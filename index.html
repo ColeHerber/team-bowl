@@ -1,405 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Team BoWL — CMU Capstone 2026</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Team BoWL</a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Overview</a></li>
+      <li><a href="problem.html">Problem</a></li>
+      <li><a href="requirements.html">Requirements</a></li>
+      <li><a href="concept.html">Concept</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="design.html">Design</a></li>
+      <li><a href="testing.html">Testing</a></li>
+      <li><a href="report.html">Report</a></li>
+    </ul>
+  </div>
+</nav>
 
-  <!-- NAV -->
-  <nav>
-    <div class="nav-inner">
-      <span class="nav-logo">Team BoWL</span>
-      <ul>
-        <li><a href="#problem">Problem</a></li>
-        <li><a href="#concept">Concept</a></li>
-        <li><a href="#requirements">Requirements</a></li>
-        <li><a href="#system">System</a></li>
-        <li><a href="#demo">Demo</a></li>
-        <li><a href="#team">Team</a></li>
-        <li><a href="#downloads">Downloads</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-inner">
-      <div class="hero-text">
-        <p class="hero-label">CMU Capstone 2026</p>
-        <h1>A robot that carries your backpack.</h1>
-        <p class="hero-sub">
-          Team BoWL is an autonomous legged-wheeled robot designed to follow
-          students across a university campus, carrying their belongings so
-          they don't have to.
-        </p>
-        <div class="hero-buttons">
-          <a href="#concept" class="btn btn-primary">See How It Works</a>
-          <a href="assets/docs/report.pdf" class="btn btn-secondary" target="_blank">Read the Report</a>
-        </div>
-      </div>
-      <div class="hero-img">
-        <img src="assets/img/robot-hero.jpg" alt="Team BoWL robot" />
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-label">CMU Capstone 2026</p>
+      <h1>A robot that carries your backpack.</h1>
+      <p class="hero-sub">Team BoWL is an autonomous legged-wheeled robot that follows students across campus, carrying their belongings so they don't have to.</p>
+      <div class="hero-buttons">
+        <a href="problem.html" class="btn btn-primary">Explore the Project</a>
+        <a href="report.html" class="btn btn-secondary">Read the Report</a>
       </div>
     </div>
-  </section>
-
-  <!-- PROBLEM -->
-  <section id="problem" class="section-alt">
-    <div class="section-inner">
-      <p class="section-eyebrow">Problem Definition</p>
-      <h2>Students carry too much.</h2>
-      <p class="section-intro">
-        On a typical university campus, students travel between buildings
-        carrying backpacks loaded with laptops, textbooks, and supplies.
-        Continuous backpack use causes back, neck, and shoulder pain, increasing
-        spinal pressure and reducing comfort over a full day of classes.
-      </p>
-      <div class="problem-grid">
-        <div class="problem-card">
-          <div class="problem-icon">🎒</div>
-          <h3>Physical Strain</h3>
-          <p>Heavy backpacks cause chronic muscle and joint pain, reducing efficiency and wellbeing throughout the school day.</p>
-        </div>
-        <div class="problem-card">
-          <div class="problem-icon">♿</div>
-          <h3>Accessibility</h3>
-          <p>Students with mobility limitations face even greater difficulty carrying heavy loads across a spread-out campus.</p>
-        </div>
-        <div class="problem-card">
-          <div class="problem-icon">🗺️</div>
-          <h3>Mixed Terrain</h3>
-          <p>Campus environments include smooth halls, cracked sidewalks, curbs, and elevators — a challenge for conventional wheeled solutions.</p>
-        </div>
-      </div>
-      <div class="motivation-block">
-        <div class="motivation-text">
-          <h3>Prior Art &amp; Motivation</h3>
-          <p>
-            The Piaggio Gita is a commercially available autonomous cargo robot
-            that follows a user, but it is limited to smooth, even terrain due
-            to its purely wheeled design. Team BoWL extends this concept to
-            handle the full range of terrain found on a real campus by combining
-            wheels for efficiency with deployable legs for stability and
-            obstacle-climbing.
-          </p>
-        </div>
-        <div class="motivation-img">
-          <img src="assets/img/robot-cargo.jpg" alt="User accessing cargo compartment" />
-        </div>
-      </div>
+    <div class="hero-img">
+      <img src="assets/img/robot-hero.jpg" alt="Team BoWL robot" />
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CONCEPT -->
-  <section id="concept">
-    <div class="section-inner">
-      <p class="section-eyebrow">Concept</p>
-      <h2>Wheels for speed. Legs for everything else.</h2>
-      <p class="section-intro">
-        The robot operates primarily on wheels for efficient travel, then
-        deploys auxiliary leg mechanisms to stabilize itself and climb obstacles
-        like curbs and elevator thresholds. A lockable cargo compartment stores
-        up to 20.6 quarts of cargo.
-      </p>
-
-      <div class="concept-modes">
-        <div class="mode-card">
-          <div class="mode-num">01</div>
-          <h3>Autonomous Following</h3>
-          <p>The robot uses its RGB-D camera and LiDAR to detect, identify, and track the user. It maintains a 0.5–5 m following distance while avoiding obstacles in real time.</p>
-        </div>
-        <div class="mode-card">
-          <div class="mode-num">02</div>
-          <h3>Rough-Terrain Assist</h3>
-          <p>When wheel odometry or IMU data indicates a stall or obstacle, the leg servos activate to push the robot over the obstacle and resume rolling.</p>
-        </div>
-        <div class="mode-card">
-          <div class="mode-num">03</div>
-          <h3>Tele-Operation</h3>
-          <p>A remote operator can take full control over WiFi at any time, commanding motion in any direction. Switching between modes is seamless.</p>
-        </div>
-        <div class="mode-card">
-          <div class="mode-num">04</div>
-          <h3>Fail-Safe / E-Stop</h3>
-          <p>Both a physical e-stop switch and a wireless software e-stop cut power to all actuators instantly. LED status indicators are visible from 15 m away.</p>
-        </div>
-      </div>
-
-      <div class="cad-block">
-        <h3>Engineering Design</h3>
-        <div class="cad-img">
-          <img src="assets/img/cad-assembly.png" alt="High-fidelity assembly drawing" />
-        </div>
-        <p class="img-caption">High-fidelity assembly drawing — stowed configuration (four views). Drawn by Cole Herber.</p>
-      </div>
-
-      <div class="trade-block">
-        <div class="trade-text">
-          <h3>Motion Method Trade Study</h3>
-          <p>
-            The team evaluated 18 locomotion concepts across seven weighted
-            criteria: implementation complexity, mass &amp; size, space
-            efficiency, power loss, speed, obstacle traversal, and user
-            accessibility. The analysis pointed to a <strong>biped+ (biped with
-            wheels)</strong> configuration as optimal. The final design
-            implements this as two drive wheels with four deployable leg
-            servos (RS04 joints) for terrain assist.
-          </p>
-        </div>
-        <div class="trade-img">
-          <img src="assets/img/trade-study.png" alt="Motion method trade study table" />
-        </div>
-      </div>
-
-      <div class="workshop-img-row">
-        <div class="workshop-img">
-          <img src="assets/img/robot-workshop.jpg" alt="Robot in the workshop" />
-          <p class="img-caption">Assembled robot in the Newell-Simon Hall highbay.</p>
-        </div>
-        <div class="workshop-img">
-          <img src="assets/img/robot-legs.jpg" alt="Robot leg mechanism detail" />
-          <p class="img-caption">Leg mechanism detail showing RS04 servo joints and carbon fiber linkages.</p>
-        </div>
-      </div>
+<!-- AT A GLANCE -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <p class="eyebrow">At a Glance</p>
+    <h2>Key metrics</h2>
+    <div class="stat-grid" style="margin-top:1.5rem">
+      <div class="stat-card"><div class="stat-number">57.94 lbs</div><div class="stat-label">Total robot weight (limit: 60 lbs)</div></div>
+      <div class="stat-card"><div class="stat-number">20.6 qt</div><div class="stat-label">Cargo capacity (minimum: 5 gal)</div></div>
+      <div class="stat-card"><div class="stat-number">$2,446</div><div class="stat-label">Total build cost (budget: $2,500)</div></div>
+      <div class="stat-card"><div class="stat-number">24³ in</div><div class="stat-label">Max footprint (target: 24×24×24 in)</div></div>
+      <div class="stat-card"><div class="stat-number">0.5–5 m</div><div class="stat-label">Autonomous follow distance range</div></div>
+      <div class="stat-card"><div class="stat-number">&lt;1 sec</div><div class="stat-label">Emergency stop response time</div></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- REQUIREMENTS -->
-  <section id="requirements" class="section-alt">
-    <div class="section-inner">
-      <p class="section-eyebrow">Requirements</p>
-      <h2>What the robot must do.</h2>
-      <p class="section-intro">
-        The system requirements were derived from the problem statement and
-        organized by priority: <strong>H</strong> (necessary for function),
-        <strong>M</strong> (greatly improves function), and
-        <strong>L</strong> (minor improvement). All high-priority requirements
-        were validated at the System Validation Review.
-      </p>
-
-      <div class="req-grid">
-        <div class="req-card req-pass">
-          <div class="req-id">R-1</div>
-          <div class="req-title">Safety</div>
-          <div class="req-body">Wireless + physical e-stop. Must halt within 1 second. LED status indicators visible from 15 m.</div>
-          <div class="req-status pass">✓ Pass</div>
-        </div>
-        <div class="req-card req-pass">
-          <div class="req-id">R-2</div>
-          <div class="req-title">Physical Dimensions</div>
-          <div class="req-body">Robot + cargo under 60 lbs. Fits in 24 × 24 × 24 in.</div>
-          <div class="req-status pass">✓ Pass — 57.94 lbs, 24×24×24 in</div>
-        </div>
-        <div class="req-card req-pass">
-          <div class="req-id">R-3</div>
-          <div class="req-title">Cargo Capacity</div>
-          <div class="req-body">Minimum 5-gallon storage volume. Minimum 15 lb cargo weight capacity.</div>
-          <div class="req-status pass">✓ Pass — 20.6 qt storage</div>
-        </div>
-        <div class="req-card req-pass">
-          <div class="req-id">R-4</div>
-          <div class="req-title">Operational</div>
-          <div class="req-body">Must operate indoors and outdoors. Must have a functional simulation twin.</div>
-          <div class="req-status pass">✓ Pass</div>
-        </div>
-        <div class="req-card req-pass">
-          <div class="req-id">R-5</div>
-          <div class="req-title">Terrain Traversal</div>
-          <div class="req-body">Traverse rough terrain. Avoid obstacles. Move in multiple directions from rest.</div>
-          <div class="req-status pass">✓ Pass</div>
-        </div>
-        <div class="req-card req-pass">
-          <div class="req-id">R-6</div>
-          <div class="req-title">User Operation</div>
-          <div class="req-body">Fully autonomous. Full tele-op fallback. Speed under 12 MPH (Pittsburgh ordinance).</div>
-          <div class="req-status partial">~ Partial — autonomous needs tuning</div>
-        </div>
-        <div class="req-card req-pass">
-          <div class="req-id">R-7</div>
-          <div class="req-title">User Following</div>
-          <div class="req-body">Track user within ±0.5 m. Follow distance 0.5–5 m.</div>
-          <div class="req-status pass">✓ Pass</div>
-        </div>
-        <div class="req-card req-pass">
-          <div class="req-id">R-9</div>
-          <div class="req-title">Reliability</div>
-          <div class="req-body">Survive 0.5 m drop. All parts replaceable in &lt;15 min. Withstand 150 lb lateral impact. Non-marking wheels.</div>
-          <div class="req-status pass">✓ Pass</div>
-        </div>
-        <div class="req-card req-pass">
-          <div class="req-id">R-10</div>
-          <div class="req-title">Economic</div>
-          <div class="req-body">Total BOM cost under $2,500. Manufacturable with CNC, lathe, and 3D printing.</div>
-          <div class="req-status pass">✓ Pass — $2,446 spent</div>
-        </div>
-        <div class="req-card req-pass">
-          <div class="req-id">R-11</div>
-          <div class="req-title">Connectivity</div>
-          <div class="req-body">Wireless communication over an FCC-allowed method.</div>
-          <div class="req-status pass">✓ Pass — WiFi</div>
-        </div>
-        <div class="req-card req-pass">
-          <div class="req-id">R-12</div>
-          <div class="req-title">Human Factors</div>
-          <div class="req-body">Consistent color scheme. Cargo accessible in &lt;15 seconds across diverse users.</div>
-          <div class="req-status pass">✓ Pass</div>
-        </div>
-      </div>
+<!-- SECTION CARDS -->
+<section class="section">
+  <div class="section-inner">
+    <p class="eyebrow">Project Sections</p>
+    <h2>Explore in depth</h2>
+    <p class="lead" style="margin-top:0.5rem">Each section mirrors a chapter of the engineering report. Click through for the full detail.</p>
+    <div class="nav-cards">
+      <a href="problem.html" class="nav-card">
+        <div class="nav-card-icon">🎒</div>
+        <h3>Problem Definition</h3>
+        <p>Heavy backpacks cause chronic pain on campus. We analyzed the problem, defined assumptions, and mapped out six operational use cases.</p>
+        <span class="nav-card-link">Problem Definition →</span>
+      </a>
+      <a href="requirements.html" class="nav-card">
+        <div class="nav-card-icon">📋</div>
+        <h3>Requirements</h3>
+        <p>12 requirement categories (R-1 through R-12), 30+ individual requirements with measurable criteria, priority levels, and validation status.</p>
+        <span class="nav-card-link">Requirements →</span>
+      </a>
+      <a href="concept.html" class="nav-card">
+        <div class="nav-card-icon">💡</div>
+        <h3>Concept &amp; Trade Studies</h3>
+        <p>Six operating modes, mode transition logic, sequence diagrams, and three trade studies: locomotion, perception, and communications.</p>
+        <span class="nav-card-link">Concept →</span>
+      </a>
+      <a href="architecture.html" class="nav-card">
+        <div class="nav-card-icon">🏗️</div>
+        <h3>System Architecture</h3>
+        <p>ROS 2 node graph, electrical architecture, and subsystem block diagrams covering perception, decision, locomotion, and safety.</p>
+        <span class="nav-card-link">Architecture →</span>
+      </a>
+      <a href="design.html" class="nav-card">
+        <div class="nav-card-icon">🔧</div>
+        <h3>Detailed Design</h3>
+        <p>High-fidelity CAD drawings, prototype results, manufacturing processes, electrical assembly, and software state machine.</p>
+        <span class="nav-card-link">Design →</span>
+      </a>
+      <a href="testing.html" class="nav-card">
+        <div class="nav-card-icon">✅</div>
+        <h3>Testing &amp; Results</h3>
+        <p>Full system validation: 16 failure modes analyzed, every requirement tested, results recorded.</p>
+        <span class="nav-card-link">Testing →</span>
+      </a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- SYSTEM -->
-  <section id="system">
-    <div class="section-inner">
-      <p class="section-eyebrow">System Architecture</p>
-      <h2>Four subsystems. One robot.</h2>
-      <p class="section-intro">
-        Every module is implemented as a ROS 2 node communicating over
-        standardized topics. The architecture emphasizes modularity and
-        fault isolation — perception, decision, actuation, and safety are
-        fully decoupled.
-      </p>
-
-      <div class="arch-tabs">
-        <div class="arch-panel">
-          <h3>Subsystem Overview</h3>
-          <img src="assets/img/arch-subsystem.png" alt="Subsystem architecture diagram" />
-          <p class="img-caption">Four top-level subsystems: HCI &amp; Safety, Perception, Decision, and Locomotion.</p>
-        </div>
-        <div class="arch-panel">
-          <h3>Software Data Flow</h3>
-          <img src="assets/img/arch-software.png" alt="Software architecture diagram" />
-          <p class="img-caption">ROS 2 node graph showing sensor bridges, planners, mode manager, and actuator controllers.</p>
-        </div>
-      </div>
-
-      <div class="subsystem-grid">
-        <div class="subsystem-card">
-          <h3>Perception</h3>
-          <p>OAK-D RGB-D camera tracks the user. A 2D LiDAR detects obstacles. An Xsens MTi IMU provides odometry and orientation. All streams merge in a sensor bridge node.</p>
-        </div>
-        <div class="subsystem-card">
-          <h3>Decision &amp; Planning</h3>
-          <p>A terrain assessor classifies surface difficulty. The mode manager selects wheel-only or leg-assist locomotion. The local planner generates obstacle-avoiding waypoints.</p>
-        </div>
-        <div class="subsystem-card">
-          <h3>Locomotion</h3>
-          <p>Two large drive wheels powered by VESC motor controllers. Four RS04 servo leg joints for terrain assist. A dedicated leg MCU and locomotion control nodes manage all motion.</p>
-        </div>
-        <div class="subsystem-card">
-          <h3>HCI &amp; Safety</h3>
-          <p>Physical and virtual e-stop halt all actuators within 1 second. RGB LED strips signal operational state. A tele-op server enables full remote control over WiFi.</p>
-        </div>
-      </div>
-
-      <div class="spec-grid" style="margin-top:3rem">
-        <div class="spec-card"><div class="spec-label">Compute</div><div class="spec-value">Jetson AGX Orin</div></div>
-        <div class="spec-card"><div class="spec-label">Drive</div><div class="spec-value">2× VESC Wheel Motors</div></div>
-        <div class="spec-card"><div class="spec-label">Legs</div><div class="spec-value">4× RS04 Servo Joints</div></div>
-        <div class="spec-card"><div class="spec-label">Camera</div><div class="spec-value">OAK-D RGB-D</div></div>
-        <div class="spec-card"><div class="spec-label">Ranging</div><div class="spec-value">2D LiDAR</div></div>
-        <div class="spec-card"><div class="spec-label">IMU</div><div class="spec-value">Xsens MTi</div></div>
-        <div class="spec-card"><div class="spec-label">Framework</div><div class="spec-value">ROS 2</div></div>
-        <div class="spec-card"><div class="spec-label">Simulation</div><div class="spec-value">MuJoCo</div></div>
-        <div class="spec-card"><div class="spec-label">Weight</div><div class="spec-value">57.94 lbs</div></div>
-        <div class="spec-card"><div class="spec-label">Footprint</div><div class="spec-value">24 × 24 × 24 in</div></div>
-        <div class="spec-card"><div class="spec-label">Cargo</div><div class="spec-value">20.6 qt (5+ gal)</div></div>
-        <div class="spec-card"><div class="spec-label">Build Cost</div><div class="spec-value">$2,446 / $2,500</div></div>
-      </div>
+<!-- DEMO -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <p class="eyebrow">Demo</p>
+    <h2>The robot in action</h2>
+    <p class="lead" style="margin-top:0.5rem">System Validation Review footage.</p>
+    <div class="video-full">
+      <iframe src="https://www.youtube.com/embed/pW4v2TRshao" title="Team BoWL SVR Demo" allowfullscreen></iframe>
     </div>
-  </section>
-
-  <!-- DEMO -->
-  <section id="demo" class="section-alt">
-    <div class="section-inner">
-      <p class="section-eyebrow">Demo</p>
-      <h2>The robot in action.</h2>
-      <p class="section-intro">
-        Videos of terrain traversal, autonomous following, and tele-operation
-        from our System Validation Review.
-      </p>
-      <div class="video-grid">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/pW4v2TRshao" title="Team BoWL demo" allowfullscreen></iframe>
-        </div>
-        <div class="video-placeholder">
-          <div class="video-placeholder-inner">
-            <div class="play-icon">▶</div>
-            <p>Autonomous Following</p>
-            <span>User tracking + obstacle avoidance</span>
-          </div>
-        </div>
-        <div class="video-placeholder">
-          <div class="video-placeholder-inner">
-            <div class="play-icon">▶</div>
-            <p>Tele-Operation</p>
-            <span>Full indoor test course</span>
-          </div>
-        </div>
-      </div>
-      <p class="video-note">Replace the placeholders above with additional <code>&lt;video&gt;</code> or YouTube embeds as footage becomes available.</p>
+    <div class="video-grid">
+      <div class="video-placeholder"><div class="video-placeholder-inner"><div class="play-icon">▶</div><p>Autonomous Following</p><span>User tracking + obstacle avoidance</span></div></div>
+      <div class="video-placeholder"><div class="video-placeholder-inner"><div class="play-icon">▶</div><p>Terrain Traversal</p><span>Cracked floors &amp; elevator threshold</span></div></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- TEAM -->
-  <section id="team">
-    <div class="section-inner">
-      <p class="section-eyebrow">Team</p>
-      <h2>Who built it.</h2>
-      <div class="team-grid">
-        <div class="team-card">
-          <div class="team-avatar" style="--c:#1a56db">CH</div>
-          <div class="team-name">Cole Herber</div>
-          <div class="team-role">Mechanical Design &amp; Software</div>
-          <a href="mailto:cherber@andrew.cmu.edu" class="team-email">cherber@andrew.cmu.edu</a>
-        </div>
-        <div class="team-card">
-          <div class="team-avatar" style="--c:#0e7c5b">EP</div>
-          <div class="team-name">Eesha Palasamudrum</div>
-          <div class="team-role">Software &amp; Systems</div>
-          <a href="mailto:epalasam@andrew.cmu.edu" class="team-email">epalasam@andrew.cmu.edu</a>
-        </div>
-        <div class="team-card">
-          <div class="team-avatar" style="--c:#b45309">JV</div>
-          <div class="team-name">Jose Voisin</div>
-          <div class="team-role">Software &amp; Perception</div>
-          <a href="mailto:jvoisin@andrew.cmu.edu" class="team-email">jvoisin@andrew.cmu.edu</a>
-        </div>
-        <div class="team-card">
-          <div class="team-avatar" style="--c:#7e22ce">SH</div>
-          <div class="team-name">Sophia Holland</div>
-          <div class="team-role">Electrical &amp; Mechanical</div>
-          <a href="mailto:sophiaho@andrew.cmu.edu" class="team-email">sophiaho@andrew.cmu.edu</a>
-        </div>
-      </div>
+<!-- TEAM -->
+<section class="section">
+  <div class="section-inner">
+    <p class="eyebrow">Team</p>
+    <h2>Who built it</h2>
+    <div class="team-grid" style="margin-top:1.5rem">
+      <div class="team-card"><div class="team-avatar" style="--c:#1a56db">CH</div><div class="team-name">Cole Herber</div><div class="team-role">Mechanical Design &amp; Software</div><a href="mailto:cherber@andrew.cmu.edu" class="team-email">cherber@andrew.cmu.edu</a></div>
+      <div class="team-card"><div class="team-avatar" style="--c:#0e7c5b">EP</div><div class="team-name">Eesha Palasamudrum</div><div class="team-role">Software &amp; Systems</div><a href="mailto:epalasam@andrew.cmu.edu" class="team-email">epalasam@andrew.cmu.edu</a></div>
+      <div class="team-card"><div class="team-avatar" style="--c:#b45309">JV</div><div class="team-name">Jose Voisin</div><div class="team-role">Software &amp; Perception</div><a href="mailto:jvoisin@andrew.cmu.edu" class="team-email">jvoisin@andrew.cmu.edu</a></div>
+      <div class="team-card"><div class="team-avatar" style="--c:#7e22ce">SH</div><div class="team-name">Sophia Holland</div><div class="team-role">Electrical &amp; Mechanical</div><a href="mailto:sophiaho@andrew.cmu.edu" class="team-email">sophiaho@andrew.cmu.edu</a></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- DOWNLOADS -->
-  <section id="downloads" class="section-alt">
-    <div class="section-inner downloads-inner">
-      <p class="section-eyebrow">Downloads</p>
-      <h2>Project deliverables.</h2>
-      <div class="download-cards">
-        <a href="assets/docs/report.pdf" class="download-card" target="_blank">
-          <div class="download-icon">📄</div>
-          <div class="download-title">System Engineering Report</div>
-          <div class="download-sub">PDF — Requirements, design, V&amp;V</div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <span>Team BoWL &mdash; Carnegie Mellon University &mdash; 2026</span>
-      <a href="https://github.com/ColeHerber/team-bowl" target="_blank">GitHub</a>
-    </div>
-  </footer>
-
+<footer><div class="footer-inner"><span>Team BoWL &mdash; Carnegie Mellon University &mdash; 2026</span><a href="https://github.com/ColeHerber/team-bowl" target="_blank">GitHub</a></div></footer>
 </body>
 </html>

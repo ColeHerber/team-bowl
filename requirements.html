@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Requirements — Team BoWL</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Team BoWL</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Overview</a></li>
+      <li><a href="problem.html">Problem</a></li>
+      <li><a href="requirements.html" class="active">Requirements</a></li>
+      <li><a href="concept.html">Concept</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="design.html">Design</a></li>
+      <li><a href="testing.html">Testing</a></li>
+      <li><a href="report.html">Report</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <p class="eyebrow">Requirements</p>
+    <h1>What the robot must do</h1>
+  </div>
+</div>
+
+<section class="section">
+  <div class="section-inner">
+    <p style="color:var(--text-sub); margin-bottom:1.5rem; max-width:700px">Every requirement has a priority flag: <span class="badge badge-h">H</span> necessary for function, <span class="badge badge-m">M</span> greatly improves function, <span class="badge badge-l">L</span> minor improvement. Validation status is from the System Validation Review.</p>
+
+    <!-- R-1 Safety -->
+    <div class="req-category">
+      <div class="req-category-header"><h3>R-1 — Safety</h3></div>
+      <div class="req-row">
+        <div class="req-id-col">R-1.1</div>
+        <div class="req-content">
+          <div class="req-title">Virtual Emergency Stop (E-Stop) <span class="badge badge-h">H</span></div>
+          <div class="req-desc">Robot must include a wireless emergency stop that pauses all function as soon as possible.</div>
+          <div class="req-criterion">E-Stop command must bring the robot to a full stop within 1 second.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-1.2</div>
+        <div class="req-content">
+          <div class="req-title">Physical Emergency Stop <span class="badge badge-h">H</span></div>
+          <div class="req-desc">Robot must include a physical emergency stop switch that pauses all function as soon as possible.</div>
+          <div class="req-criterion">Activation must bring the robot to a full stop within 1 second.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-1.3</div>
+        <div class="req-content">
+          <div class="req-title">External Status Indicators <span class="badge badge-m">M</span></div>
+          <div class="req-desc">Robot must display current operational mode/status via lights or audio cues.</div>
+          <div class="req-criterion">Status indicators must be visible/audible from 15 meters away (per OSHA/IEC 60204-1).</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+    </div>
+
+    <!-- R-2 Physical Dimensions -->
+    <div class="req-category">
+      <div class="req-category-header"><h3>R-2 — Physical Dimensions</h3></div>
+      <div class="req-row">
+        <div class="req-id-col">R-2.1</div>
+        <div class="req-content">
+          <div class="req-title">Weight Limits <span class="badge badge-h">H</span></div>
+          <div class="req-desc">Robot must be a size moveable by the average person. Users will need to transport the robot between uses.</div>
+          <div class="req-criterion">Robot plus cargo must be less than 60 lbs (OSHA lifting recommendation).</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ 57.94 lbs</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-2.2</div>
+        <div class="req-content">
+          <div class="req-title">Dimensions <span class="badge badge-m">M</span></div>
+          <div class="req-desc">Robot must be a size usable for transport and storage. Users will need to store it between uses.</div>
+          <div class="req-criterion">Robot must be less than 24 × 24 × 24 inches.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+    </div>
+
+    <!-- R-3 Carrying Capacity -->
+    <div class="req-category">
+      <div class="req-category-header"><h3>R-3 — Carrying Capacity</h3></div>
+      <div class="req-row">
+        <div class="req-id-col">R-3.1</div>
+        <div class="req-content">
+          <div class="req-title">Cargo Storage Volume <span class="badge badge-h">H</span></div>
+          <div class="req-desc">Robot must be able to transport an acceptable size of objects.</div>
+          <div class="req-criterion">Robot must have a 5-gallon minimum cargo capacity.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ 20.6 qt</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-3.2</div>
+        <div class="req-content">
+          <div class="req-title">Minimum Cargo Weight Capacity <span class="badge badge-m">M</span></div>
+          <div class="req-desc">Robot must be able to transport an acceptable weight of objects.</div>
+          <div class="req-criterion">Robot must be able to store a minimum of 15 lbs.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-na">— Inspection</span></div>
+      </div>
+    </div>
+
+    <!-- R-4 Operational -->
+    <div class="req-category">
+      <div class="req-category-header"><h3>R-4 — Operational</h3></div>
+      <div class="req-row">
+        <div class="req-id-col">R-4.1</div>
+        <div class="req-content">
+          <div class="req-title">Indoor/Outdoor Operation <span class="badge badge-h">H</span></div>
+          <div class="req-desc">Robot must operate as expected indoors and on some rougher sidewalks.</div>
+          <div class="req-criterion">Robot successfully navigates indoor and outdoor test courses.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-4.2</div>
+        <div class="req-content">
+          <div class="req-title">Simulation Environment <span class="badge badge-l">L</span></div>
+          <div class="req-desc">Robot must have a simulation twin with mock environments.</div>
+          <div class="req-criterion">Simulation model must replicate and perform well in response to common challenges.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+    </div>
+
+    <!-- R-5 Terrain Traversal -->
+    <div class="req-category">
+      <div class="req-category-header"><h3>R-5 — Terrain Traversal Ability</h3></div>
+      <div class="req-row">
+        <div class="req-id-col">R-5.1</div>
+        <div class="req-content">
+          <div class="req-title">Terrain Traversal <span class="badge badge-h">H</span></div>
+          <div class="req-desc">Robot must be able to traverse difficult terrain to suit user needs.</div>
+          <div class="req-criterion">Robot must successfully follow the user over assumed difficult terrain in a trial run.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-5.2</div>
+        <div class="req-content">
+          <div class="req-title">Obstacle Avoidance <span class="badge badge-h">H</span></div>
+          <div class="req-desc">Robot must not get stuck on obstacles while following the user.</div>
+          <div class="req-criterion">Robot does not become unable to move for more than 5 seconds while following users in trial runs.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-5.3</div>
+        <div class="req-content">
+          <div class="req-title">Move Multiple Directions from Rest <span class="badge badge-m">M</span></div>
+          <div class="req-desc">Robot must be able to move multiple directions from rest to avoid immediate obstacles.</div>
+          <div class="req-criterion">Robot must have a minimum of two full degrees of freedom at rest.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-5.4</div>
+        <div class="req-content">
+          <div class="req-title">Locking Cargo Enclosure <span class="badge badge-l">L</span></div>
+          <div class="req-desc">Robot must have a locking cargo enclosure to prevent spillage on rough terrain.</div>
+          <div class="req-criterion">Lid must physically lock with a minimum gap of 0.25 inches on all sides.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+    </div>
+
+    <!-- R-6 User Operation -->
+    <div class="req-category">
+      <div class="req-category-header"><h3>R-6 — User Operation</h3></div>
+      <div class="req-row">
+        <div class="req-id-col">R-6.1</div>
+        <div class="req-content">
+          <div class="req-title">Autonomous Operation <span class="badge badge-h">H</span></div>
+          <div class="req-desc">Robot must be fully functional without human interaction. Requiring constant inputs makes this less desirable.</div>
+          <div class="req-criterion">Robot must be operational with 0 humans providing it with direct inputs.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-partial">~ Partial</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-6.2</div>
+        <div class="req-content">
+          <div class="req-title">Tele-Operation <span class="badge badge-h">H</span></div>
+          <div class="req-desc">Robot must be able to be controlled with direct inputs from the user.</div>
+          <div class="req-criterion">Every function the robot can carry out autonomously can also be executed by direct user command.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-6.3</div>
+        <div class="req-content">
+          <div class="req-title">Robot Speed <span class="badge badge-h">H</span></div>
+          <div class="req-desc">Robot speed must be less than the legal maximum for the City of Pittsburgh to operate on public sidewalks.</div>
+          <div class="req-criterion">Robot must be under 12 MPH (City of Pittsburgh ordinance).</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+    </div>
+
+    <!-- R-7 User Following -->
+    <div class="req-category">
+      <div class="req-category-header"><h3>R-7 — Designated User Following</h3></div>
+      <div class="req-row">
+        <div class="req-id-col">R-7.1</div>
+        <div class="req-content">
+          <div class="req-title">Autonomous User Tracking <span class="badge badge-h">H</span></div>
+          <div class="req-desc">Robot must automatically track user via an onboard tracking system.</div>
+          <div class="req-criterion">Robot must be able to locate user position within ±0.5 meters.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-7.2</div>
+        <div class="req-content">
+          <div class="req-title">Following Distance Range <span class="badge badge-m">M</span></div>
+          <div class="req-desc">User tracking must work within a reasonable range.</div>
+          <div class="req-criterion">Robot must track user between a minimum of 0.5 meters and a maximum of 5 meters.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+    </div>
+
+    <!-- R-8 Range -->
+    <div class="req-category">
+      <div class="req-category-header"><h3>R-8 — Robot Range</h3></div>
+      <div class="req-row">
+        <div class="req-id-col">R-8.1</div>
+        <div class="req-content">
+          <div class="req-title">Operation Duration <span class="badge badge-m">M</span></div>
+          <div class="req-desc">Robot must be fully operational for a usable amount of time.</div>
+          <div class="req-criterion">Robot must have an operation duration always greater than 30 minutes.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-8.2</div>
+        <div class="req-content">
+          <div class="req-title">Operation Range <span class="badge badge-m">M</span></div>
+          <div class="req-desc">Robot must be fully operational for a reasonable travel distance.</div>
+          <div class="req-criterion">Robot must have a 2-mile operation range.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-na">— Not tested</span></div>
+      </div>
+    </div>
+
+    <!-- R-9 Reliability -->
+    <div class="req-category">
+      <div class="req-category-header"><h3>R-9 — Reliability &amp; Maintainability</h3></div>
+      <div class="req-row">
+        <div class="req-id-col">R-9.1</div>
+        <div class="req-content">
+          <div class="req-title">Drop Resistance <span class="badge badge-h">H</span></div>
+          <div class="req-desc">Robot must survive reasonable drops without sustaining critical damage.</div>
+          <div class="req-criterion">Robot can function as designed after a 0.5-meter drop.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-9.2</div>
+        <div class="req-content">
+          <div class="req-title">Maintainability <span class="badge badge-h">H</span></div>
+          <div class="req-desc">System must allow for easily replaceable modular components to ensure fast maintenance.</div>
+          <div class="req-criterion">All components must be replaceable within 15 minutes.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-9.3</div>
+        <div class="req-content">
+          <div class="req-title">Assault Resistance <span class="badge badge-m">M</span></div>
+          <div class="req-desc">Robot must continue expected function after side impacts from human actor bumps in crowded environments.</div>
+          <div class="req-criterion">No loss in functionality when subject to a 150-pound lateral impact.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-9.4</div>
+        <div class="req-content">
+          <div class="req-title">Floor Protection <span class="badge badge-m">M</span></div>
+          <div class="req-desc">Robot must not leave marks on indoor flooring to ensure suitability for indoor use-cases.</div>
+          <div class="req-criterion">Robot does not leave marks on the floor after a 30-minute trial run.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+    </div>
+
+    <!-- R-10 Economic -->
+    <div class="req-category">
+      <div class="req-category-header"><h3>R-10 — Economic</h3></div>
+      <div class="req-row">
+        <div class="req-id-col">R-10.1</div>
+        <div class="req-content">
+          <div class="req-title">Price Cap <span class="badge badge-h">H</span></div>
+          <div class="req-desc">Build cost must remain under $2,500 to ensure development feasibility given budget constraints.</div>
+          <div class="req-criterion">Summed BOM cost must be less than or equal to $2,500.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ $2,446</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-10.2</div>
+        <div class="req-content">
+          <div class="req-title">Manufacturability <span class="badge badge-m">M</span></div>
+          <div class="req-desc">Must be manufacturable with 3-axis CNC, lathing, and 3D printing using available resources.</div>
+          <div class="req-criterion">BOM shows suitable fabrication method for all parts.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Pass</span></div>
+      </div>
+    </div>
+
+    <!-- R-11 Connectivity -->
+    <div class="req-category">
+      <div class="req-category-header"><h3>R-11 — Connectivity</h3></div>
+      <div class="req-row">
+        <div class="req-id-col">R-11.1</div>
+        <div class="req-content">
+          <div class="req-title">Wireless Communication <span class="badge badge-h">H</span></div>
+          <div class="req-desc">Robot must be able to communicate wirelessly so users can operate it without a wired connection.</div>
+          <div class="req-criterion">Robot must be communicable over an FCC-allowed wireless method.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ WiFi</span></div>
+      </div>
+    </div>
+
+    <!-- R-12 Human Factors -->
+    <div class="req-category">
+      <div class="req-category-header"><h3>R-12 — Social &amp; Human Factors</h3></div>
+      <div class="req-row">
+        <div class="req-id-col">R-12.1</div>
+        <div class="req-content">
+          <div class="req-title">Aesthetic Consistency <span class="badge badge-h">H</span></div>
+          <div class="req-desc">Robot must use a consistent color scheme to increase acceptance and trust in public settings.</div>
+          <div class="req-criterion">Exterior structure must show uniform color scheme.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ Black &amp; red</span></div>
+      </div>
+      <div class="req-row">
+        <div class="req-id-col">R-12.2</div>
+        <div class="req-content">
+          <div class="req-title">User Accessibility <span class="badge badge-m">M</span></div>
+          <div class="req-desc">Robot must be equipped with an ergonomic cargo lid handle to accommodate a variety of human actors.</div>
+          <div class="req-criterion">Average time to retrieve or deposit cargo is less than 15 seconds across a diverse user test group.</div>
+        </div>
+        <div class="req-status-col"><span class="badge badge-pass">✓ &lt;15 sec</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer><div class="footer-inner"><span>Team BoWL &mdash; Carnegie Mellon University &mdash; 2026</span><a href="https://github.com/ColeHerber/team-bowl" target="_blank">GitHub</a></div></footer>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detailed Design — Team BoWL</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Team BoWL</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Overview</a></li>
+      <li><a href="problem.html">Problem</a></li>
+      <li><a href="requirements.html">Requirements</a></li>
+      <li><a href="concept.html">Concept</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="design.html" class="active">Design</a></li>
+      <li><a href="testing.html">Testing</a></li>
+      <li><a href="report.html">Report</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <p class="eyebrow">Detailed Design</p>
+    <h1>CAD, prototypes, electrical, and software</h1>
+  </div>
+</div>
+
+<!-- SYSTEM OVERVIEW -->
+<section class="section">
+  <div class="section-inner">
+    <p class="eyebrow">System Overview</p>
+    <h2>What we built</h2>
+    <p class="lead" style="margin-top:0.5rem">A robotic backpack with two mobility modes and autonomous following capabilities. Designed to carry a 5-gallon payload across smooth and rough terrain.</p>
+    <div class="grid-auto" style="margin-top:1.5rem">
+      <div class="card">
+        <h4 style="margin-bottom:0.4rem">Locomotion</h4>
+        <p style="font-size:0.875rem; color:var(--text-sub)">Wheels for efficient flat-ground travel; deployable powered legs with actuated hip, knee, and ankle joints for rough terrain assist.</p>
+      </div>
+      <div class="card">
+        <h4 style="margin-bottom:0.4rem">Perception</h4>
+        <p style="font-size:0.875rem; color:var(--text-sub)">OAK-D RGB-D camera + 3D LiDAR for user tracking and obstacle avoidance. Xsens MTi IMU for motion estimation.</p>
+      </div>
+      <div class="card">
+        <h4 style="margin-bottom:0.4rem">Compute &amp; Control</h4>
+        <p style="font-size:0.875rem; color:var(--text-sub)">Jetson AGX Orin running ROS 2 nodes connected via Ethernet. VESC motor controllers and RS04 servo joints on CAN bus.</p>
+      </div>
+      <div class="card">
+        <h4 style="margin-bottom:0.4rem">Storage</h4>
+        <p style="font-size:0.875rem; color:var(--text-sub)">Motorized linear sliding lid with electronic locking. 0–5 gallon payload volume secured during transit.</p>
+      </div>
+      <div class="card">
+        <h4 style="margin-bottom:0.4rem">Power</h4>
+        <p style="font-size:0.875rem; color:var(--text-sub)">24 V battery powers high-current motors; DC-DC converters step down for compute electronics.</p>
+      </div>
+      <div class="card">
+        <h4 style="margin-bottom:0.4rem">Safety</h4>
+        <p style="font-size:0.875rem; color:var(--text-sub)">Physical + wireless E-Stop, external status LED indicators, and tele-operation fallback mode.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAD DRAWINGS -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <p class="eyebrow">System Drawings</p>
+    <h2>High-fidelity CAD</h2>
+    <p class="lead" style="margin-top:0.5rem">Full-robot assembly drawings showing both the cruising (wheels-down) and walking (legs-deployed) configurations.</p>
+    <div class="grid-2" style="margin-top:1.5rem; gap:1.5rem">
+      <div class="img-bordered">
+        <img src="assets/img/cad-assembly.png" alt="Full Robot Assembly Drawing — Walking Configuration" />
+        <p class="img-caption">Full Robot Assembly — Walking Configuration. Legs deployed for rough terrain traversal.</p>
+      </div>
+      <div class="img-bordered">
+        <img src="assets/img/cad-lid-open.png" alt="Full Robot Assembly Drawing — Lid Open" />
+        <p class="img-caption">Full Robot Assembly — Lid Open Configuration. Shows the motorized linear sliding lid in the open position for cargo access.</p>
+      </div>
+      <div class="img-bordered">
+        <img src="assets/img/leg-stowed.png" alt="Leg Stowed Diagram" />
+        <p class="img-caption">Leg Stowed Diagram. Legs folded into the chassis for efficient wheel-based traversal on smooth terrain.</p>
+      </div>
+      <div class="img-bordered">
+        <img src="assets/img/leg-deployed.png" alt="Leg Deployed Diagram" />
+        <p class="img-caption">Leg Deployed Diagram. Legs extended in rough-terrain assist mode. Each leg has actuated hip, knee, and ankle joints.</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1.5rem">
+      <h4 style="margin-bottom:0.5rem">Center of Mass Note</h4>
+      <p style="font-size:0.875rem; color:var(--text-sub)">Analysis confirms minimal shift of the center of mass between the walking configuration and the rolling configuration, ensuring stability across both modes without requiring significant control compensation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROTOTYPE RESULTS -->
+<section class="section">
+  <div class="section-inner">
+    <p class="eyebrow">Prototype Results</p>
+    <h2>Leg and foot prototyping</h2>
+    <p class="lead" style="margin-top:0.5rem">A physical leg prototype was built and tested before finalizing the design. Three key design questions were investigated.</p>
+
+    <div style="margin-top:1.5rem">
+      <h3 style="margin-bottom:1rem">Foot Shape Trade Study</h3>
+      <div class="grid-2" style="align-items:start; gap:2rem">
+        <div class="img-bordered">
+          <img src="assets/img/foot-shape-trade.png" alt="Foot shape trade study" />
+          <p class="img-caption">Foot shape comparison: ball foot, sole (flat) foot, and wheel foot. Key evaluation criteria: terrain adaptability, stability, power consumption, and ankle feedback potential.</p>
+        </div>
+        <div>
+          <p style="color:var(--text-sub); font-size:0.9rem; margin-bottom:1rem">Three industry-standard foot shapes were evaluated:</p>
+          <ul style="font-size:0.875rem; color:var(--text-sub); display:flex; flex-direction:column; gap:0.6rem; padding-left:1.2rem">
+            <li><strong>Ball foot</strong> — simple, great for very rough terrain (rubble, dirt), but lacks directional feedback</li>
+            <li><strong>Sole (flat) foot</strong> — simulates humanlike walking; provides motor feedback at the ankle for terrain sensing; chosen for our application</li>
+            <li><strong>Wheel foot</strong> — high terrain adaptability, but large and power-hungry just to hold static stance</li>
+          </ul>
+          <div class="card" style="margin-top:1rem">
+            <h4 style="margin-bottom:0.25rem">Result: Actuated Sole Foot</h4>
+            <p style="font-size:0.875rem; color:var(--text-sub)">An actuated flat foot was chosen for its robustness and lower stability-to-power ratio. Motor torque feedback at the ankle gives the system better terrain state awareness than alternative designs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem">
+      <h3 style="margin-bottom:1rem">Leg Prototype Findings</h3>
+      <div class="grid-2" style="align-items:start; gap:2rem">
+        <div class="img-bordered">
+          <img src="assets/img/leg-prototype.jpg" alt="Prototype leg with one actuator" />
+          <p class="img-caption">Prototype leg with a single hip actuator. Built to validate CAN communication, range of motion, and foot feedback design before full assembly.</p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:1rem">
+          <div class="card">
+            <h4 style="margin-bottom:0.25rem">Q1: Is CAN appropriate?</h4>
+            <p style="font-size:0.875rem; color:var(--text-sub)">Yes, but a more reliable board is needed. The low-cost Robstride USB-to-CAN converter showed reliability issues. Prototyping early revealed the need for a better development board before full system assembly.</p>
+          </div>
+          <div class="card">
+            <h4 style="margin-bottom:0.25rem">Q2: Is the range of motion sufficient?</h4>
+            <p style="font-size:0.875rem; color:var(--text-sub)">Partially. The single outer hip actuator provided vertical motion, but an additional inner hip actuator was needed for full lateral control during wheeled motion. This drove the decision to add a second hip joint per leg.</p>
+          </div>
+          <div class="card">
+            <h4 style="margin-bottom:0.25rem">Q3: Is the flat foot with actuated ankle viable?</h4>
+            <p style="font-size:0.875rem; color:var(--text-sub)">Yes. Although the ankle could not be tested with full torque feedback due to motor shipping delays, range-of-motion inspection and prior torque control experience confirmed that an actuated ankle is both feasible and beneficial for terrain detection.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.5rem">
+        <div class="img-bordered" style="max-width:400px">
+          <img src="assets/img/foot.jpg" alt="Foot prototype in white ABS" />
+          <p class="img-caption">Foot prototype in white ABS. Flat sole with ankle motor mount. Compared against ball and wheel alternatives in bench testing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ELECTRICAL -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <p class="eyebrow">Electrical Design</p>
+    <h2>Wiring and component layout</h2>
+    <div class="img-bordered" style="margin-top:1rem">
+      <img src="assets/img/wiring.png" alt="Wiring diagram" />
+      <p class="img-caption">Component wiring diagram showing the full electrical assembly: 24 V battery bus, power distribution board, DC-DC converter, Jetson AGX Orin, Ethernet switch, VESC motor controllers, CAN bus, RS04 servo joints, RGB-D camera, LiDAR, IMU, status LEDs, and E-Stop circuit.</p>
+    </div>
+    <div class="grid-2" style="margin-top:1.5rem; gap:1.5rem; align-items:start">
+      <div>
+        <h3 style="margin-bottom:0.75rem">Key Electrical Components</h3>
+        <ul style="font-size:0.875rem; color:var(--text-sub); display:flex; flex-direction:column; gap:0.4rem; padding-left:1.2rem">
+          <li>Jetson AGX Orin — primary compute (GPU/CPU for perception + planning)</li>
+          <li>VESC motor controllers — field-oriented control for drive wheels</li>
+          <li>RS04 servo joints — hip, knee, ankle on each leg (CAN bus)</li>
+          <li>Ethernet switch — connects Jetson to OAK-D camera and LiDAR</li>
+          <li>CAN bus board — bridges Jetson CAN commands to motor controllers</li>
+          <li>DC-DC converter — steps 24 V battery down to compute rail</li>
+          <li>Power distribution board — fuses and routes battery current</li>
+          <li>E-Stop circuit — hardware-hardwired motor disable path</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom:0.75rem">Communication Wiring</h3>
+        <ul style="font-size:0.875rem; color:var(--text-sub); display:flex; flex-direction:column; gap:0.4rem; padding-left:1.2rem">
+          <li><strong>Ethernet:</strong> OAK-D RGB-D camera → Ethernet switch → Jetson AGX Orin</li>
+          <li><strong>Ethernet:</strong> 3D LiDAR → Ethernet switch → Jetson AGX Orin</li>
+          <li><strong>USB:</strong> Xsens MTi IMU → Jetson AGX Orin</li>
+          <li><strong>CAN:</strong> Jetson → CAN board → VESC × 2 → RS04 servos × 6</li>
+          <li><strong>GPIO:</strong> Physical E-Stop → motor disable line</li>
+          <li><strong>Wi-Fi:</strong> Jetson → remote controller for tele-op</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOFTWARE DESIGN -->
+<section class="section">
+  <div class="section-inner">
+    <p class="eyebrow">Software Design</p>
+    <h2>State machine and UML</h2>
+    <p class="lead" style="margin-top:0.5rem">The software implements a hierarchical state machine that governs mode transitions, locomotion decisions, and safety responses.</p>
+
+    <div class="grid-2" style="margin-top:1.5rem; gap:2rem; align-items:start">
+      <div>
+        <h3 style="margin-bottom:0.75rem">UML State Diagram</h3>
+        <div class="img-bordered">
+          <img src="assets/img/uml-state.png" alt="UML State Diagram" />
+          <p class="img-caption">UML state diagram showing all system states (Idle, Autonomous, Rough-Terrain, Tele-Op, Recover, E-Stop) and their transitions.</p>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:0.75rem">State Chart</h3>
+        <div class="img-bordered">
+          <img src="assets/img/state-chart.png" alt="State Chart" />
+          <p class="img-caption">Detailed state chart with guard conditions, entry/exit actions, and internal transitions for each operating mode.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.5rem">
+      <h3 style="margin-bottom:0.75rem">State Descriptions</h3>
+      <div class="grid-auto">
+        <div class="card">
+          <h4 style="margin-bottom:0.25rem">Idle</h4>
+          <p style="font-size:0.875rem; color:var(--text-sub)">All actuators unpowered. Status LEDs in idle color. Lid accessible. Awaiting user command to start tele-op or autonomous mode.</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-bottom:0.25rem">Autonomous (Wheeled)</h4>
+          <p style="font-size:0.875rem; color:var(--text-sub)">Wheels driven toward user position. Perception continuously updates target pose and obstacle map. Local planner generates reactive paths. Legs stowed.</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-bottom:0.25rem">Rough-Terrain Assist</h4>
+          <p style="font-size:0.875rem; color:var(--text-sub)">Legs deploy. Hip, knee, and ankle joints coordinated to kick over detected obstacle. Wheels continue at reduced speed. Returns to wheeled mode after progress confirmed.</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-bottom:0.25rem">Tele-Operation</h4>
+          <p style="font-size:0.875rem; color:var(--text-sub)">Autonomous planner disabled. All motion commands from operator input. Robot stops if wireless connection is lost. Lid access available via controller command.</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-bottom:0.25rem">Recover / Failure-Safe</h4>
+          <p style="font-size:0.875rem; color:var(--text-sub)">Robot halts motion. Error LED pattern activated. Waits for user to re-identify target or switch to tele-op. Times out to E-Stop if no input received.</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-bottom:0.25rem">Emergency Stop</h4>
+          <p style="font-size:0.875rem; color:var(--text-sub)">All actuator power immediately cut via hardware E-Stop circuit. Red status LEDs. Requires physical reset and system restart to resume any operation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANUFACTURING -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <p class="eyebrow">Manufacturing</p>
+    <h2>Fabrication methods</h2>
+    <p class="lead" style="margin-top:0.5rem">The system was designed to be manufacturable with available academic machine shop resources, satisfying R-10.2 Manufacturability.</p>
+    <div class="grid-auto" style="margin-top:1.5rem">
+      <div class="card">
+        <h3 style="margin-bottom:0.5rem">3D Printing</h3>
+        <p style="font-size:0.875rem; color:var(--text-sub)">Custom brackets, foot prototypes, sensor mounts, and non-structural enclosure panels. White ABS and PETG for most parts; higher-strength materials for load-bearing components.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:0.5rem">3-Axis CNC Milling</h3>
+        <p style="font-size:0.875rem; color:var(--text-sub)">Aluminum structural chassis plates, motor mounting flanges, and precision leg segments requiring tight tolerances for joint alignment.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:0.5rem">Lathe</h3>
+        <p style="font-size:0.875rem; color:var(--text-sub)">Round-section components including axles, spacers, and wheel hubs. Also used for precision fitting of bearing seats in leg joint housings.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:0.5rem">Commercial Off-the-Shelf</h3>
+        <p style="font-size:0.875rem; color:var(--text-sub)">ROBSTRIDE RS04 servo motors, VESC motor controllers, Jetson AGX Orin, OAK-D camera, Xsens MTi IMU, bearings, fasteners, and wiring harness components.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="footer-inner"><span>Team BoWL &mdash; Carnegie Mellon University &mdash; 2026</span><a href="https://github.com/ColeHerber/team-bowl" target="_blank">GitHub</a></div></footer>
+</body>
+</html>

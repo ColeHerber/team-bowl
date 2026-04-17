@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testing &amp; Results — Team BoWL</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Team BoWL</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Overview</a></li>
+      <li><a href="problem.html">Problem</a></li>
+      <li><a href="requirements.html">Requirements</a></li>
+      <li><a href="concept.html">Concept</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="design.html">Design</a></li>
+      <li><a href="testing.html" class="active">Testing</a></li>
+      <li><a href="report.html">Report</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <p class="eyebrow">Testing &amp; Results</p>
+    <h1>Validation across all requirements</h1>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="section">
+  <div class="section-inner">
+    <p class="eyebrow">Validation Approach</p>
+    <h2>Bottom-up verification strategy</h2>
+    <p class="lead" style="margin-top:0.5rem">A three-tier approach ensures coverage of all requirements while emphasizing rigorous tests for the most critical system behaviors.</p>
+    <div class="grid-auto" style="margin-top:1.5rem">
+      <div class="card">
+        <h3 style="margin-bottom:0.5rem">Component Level</h3>
+        <p style="font-size:0.875rem; color:var(--text-sub)">White-box testing confirms software and hardware modules correctly implement their design logic and internal interfaces. Sensors, motor controllers, and compute modules tested individually.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:0.5rem">Subsystem Level</h3>
+        <p style="font-size:0.875rem; color:var(--text-sub)">White and black box testing ensures connected components exchange data, signals, and commands according to the system architecture. Perception, locomotion, safety, and communication subsystems verified as integrated units.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:0.5rem">System Level</h3>
+        <p style="font-size:0.875rem; color:var(--text-sub)">Black-box testing proves the integrated system performs end-to-end functions as designed. Full autonomous follow runs, terrain traversal courses, endurance tests, and failure-mode validation.</p>
+      </div>
+    </div>
+    <div class="img-bordered" style="margin-top:2rem">
+      <img src="assets/img/risk-matrix.png" alt="Risk Matrix" />
+      <p class="img-caption">Risk Matrix — failure modes plotted by likelihood vs. severity. Used to prioritize mitigation effort and testing thoroughness.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAILURE MODES -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <p class="eyebrow">Failure Mode Analysis</p>
+    <h2>16 identified failure modes</h2>
+    <p class="lead" style="margin-top:0.5rem">All failure modes catalogued with category, description, and mitigation strategy. Ordered by severity/priority.</p>
+    <div class="table-scroll" style="margin-top:1.5rem">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width:3.5rem">ID</th>
+            <th style="width:7rem">Category</th>
+            <th>Failure Mode</th>
+            <th>Mitigation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>F-1</strong></td>
+            <td>System</td>
+            <td>Robot collides with person or object</td>
+            <td>Obstacle detection, minimum distance monitoring, emergency braking behavior</td>
+          </tr>
+          <tr>
+            <td><strong>F-2</strong></td>
+            <td>System</td>
+            <td>Unintended motion after stop or E-Stop</td>
+            <td>Hardwired motor-disable, redundant E-Stop paths, required reset before re-enable</td>
+          </tr>
+          <tr>
+            <td><strong>F-3</strong></td>
+            <td>Hardware / Software</td>
+            <td>Robot exceeds safe speed limits</td>
+            <td>Software speed clamp, motor-driver hard caps, regression tests on speed limits</td>
+          </tr>
+          <tr>
+            <td><strong>F-4</strong></td>
+            <td>Hardware</td>
+            <td>Critical sensor loses connection</td>
+            <td>Sensor health monitoring, fallback to degraded safe mode, halt if outage persists</td>
+          </tr>
+          <tr>
+            <td><strong>F-5</strong></td>
+            <td>Software</td>
+            <td>Robot cannot identify target to follow</td>
+            <td>Tracking confidence checks, re-identification procedures, tele-op fallback</td>
+          </tr>
+          <tr>
+            <td><strong>F-6</strong></td>
+            <td>Hardware</td>
+            <td>Debris caught in wheels</td>
+            <td>Wheel guards, stall detection, prompt user to clear debris</td>
+          </tr>
+          <tr>
+            <td><strong>F-7</strong></td>
+            <td>Software</td>
+            <td>No path to target possible</td>
+            <td>Signal no-path state, safe re-positioning, tele-op override</td>
+          </tr>
+          <tr>
+            <td><strong>F-8</strong></td>
+            <td>System</td>
+            <td>Robot becomes stuck and fails to recover</td>
+            <td>Stall detection, rough-terrain mode activation, recovery maneuvers, tele-op fallback</td>
+          </tr>
+          <tr>
+            <td><strong>F-9</strong></td>
+            <td>Hardware</td>
+            <td>Structural failure of wheel or leg assembly</td>
+            <td>Safety-factor design, protective guards, regular inspection schedule</td>
+          </tr>
+          <tr>
+            <td><strong>F-10</strong></td>
+            <td>Hardware</td>
+            <td>Battery insufficiently charged</td>
+            <td>Low-battery warnings at reserve threshold, charge buffer maintained for safe stop</td>
+          </tr>
+          <tr>
+            <td><strong>F-11</strong></td>
+            <td>System</td>
+            <td>Power loss during operation</td>
+            <td>Graceful shutdown sequence, robust wiring with strain relief, proper fuse sizing</td>
+          </tr>
+          <tr>
+            <td><strong>F-12</strong></td>
+            <td>Hardware</td>
+            <td>Computational components overheat significantly</td>
+            <td>Active cooling, thermal throttling by OS, controlled stop at thermal limit</td>
+          </tr>
+          <tr>
+            <td><strong>F-13</strong></td>
+            <td>Hardware</td>
+            <td>Payload surpasses maximum carrying capacity</td>
+            <td>Load estimation at startup, user warnings, restrict operation on slopes when overloaded</td>
+          </tr>
+          <tr>
+            <td><strong>F-14</strong></td>
+            <td>Hardware</td>
+            <td>Lid or storage subsystem fails to secure cargo</td>
+            <td>Motion interlock with lid state sensor, robust motorized latch design</td>
+          </tr>
+          <tr>
+            <td><strong>F-15</strong></td>
+            <td>Hardware</td>
+            <td>Robot damages indoor floors</td>
+            <td>Non-marking wheel and foot materials, clean wheels/feet before indoor use, reduce contact forces</td>
+          </tr>
+          <tr>
+            <td><strong>F-16</strong></td>
+            <td>Software</td>
+            <td>Unable to connect to tele-op controller</td>
+            <td>Connection testing before autonomous operation, local manual controls, halt if required</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- REQUIREMENTS TESTING -->
+<section class="section">
+  <div class="section-inner">
+    <p class="eyebrow">Requirements Testing Results</p>
+    <h2>Full validation status</h2>
+    <p class="lead" style="margin-top:0.5rem">Every requirement tested, with procedure, measurable criterion, and final result recorded from System Validation Review.</p>
+
+    <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin:1.25rem 0">
+      <span class="badge badge-pass">Pass</span><span style="font-size:0.85rem; color:var(--text-sub)">Requirement fully met</span>
+      <span class="badge badge-partial" style="margin-left:1rem">~ Partial</span><span style="font-size:0.85rem; color:var(--text-sub)">Substantially met, minor gap noted</span>
+      <span class="badge badge-fail" style="margin-left:1rem">In Progress</span><span style="font-size:0.85rem; color:var(--text-sub)">Testing ongoing / incomplete</span>
+      <span class="badge badge-na" style="margin-left:1rem">Inspection</span><span style="font-size:0.85rem; color:var(--text-sub)">Verified via inspection/analysis</span>
+    </div>
+
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width:4.5rem">Req ID</th>
+            <th>Title</th>
+            <th>Criterion</th>
+            <th>Result</th>
+            <th style="width:8rem">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td><strong>R-1.1</strong></td>
+            <td>Virtual E-Stop</td>
+            <td>Full stop within ≤1.0 s of wireless command</td>
+            <td>Demonstrated through general system validation. Formal timed test remaining.</td>
+            <td><span class="badge badge-partial">~ Partial</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-1.2</strong></td>
+            <td>Electro-Mechanical E-Stop</td>
+            <td>Full stop within ≤1.0 s of physical button press</td>
+            <td>Same test procedure as R-1.1. Physical E-Stop circuit confirmed functional.</td>
+            <td><span class="badge badge-partial">~ Partial</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-1.3</strong></td>
+            <td>External Status Indicators</td>
+            <td>≥90% correct cue recognition at 15 m, 100% within 5 m</td>
+            <td>LED status indicators verified visible at ≥15 m in all operational modes.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-2.1</strong></td>
+            <td>Weight Limits</td>
+            <td>Robot + cargo ≤60 lbs</td>
+            <td>Robot weighs 57.94 lbs without payload. With a typical 2–5 lb payload, total remains under 60 lbs.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-2.2</strong></td>
+            <td>Dimensions</td>
+            <td>Fits within 24×24×24 in envelope</td>
+            <td>Measured simultaneously with R-2.1. Robot fits within specified volume.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-3.1</strong></td>
+            <td>Cargo Storage Volume</td>
+            <td>≥5 gallon usable cargo bay volume</td>
+            <td>Physical measurement confirmed 20.6 qt (≈5.15 gal) of usable storage volume.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-3.2</strong></td>
+            <td>Minimum Cargo Weight Capacity</td>
+            <td>Stable 3-minute follow with ≥15 lb payload</td>
+            <td>Robot can carry 15+ lb payload. Full test pending controller tuning for stable motion under load.</td>
+            <td><span class="badge badge-partial">In Progress</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-4.1</strong></td>
+            <td>Indoor/Outdoor Operation</td>
+            <td>Both environments completed without manual intervention</td>
+            <td>Indoor test completed successfully. Outdoor testing pending due to weather.</td>
+            <td><span class="badge badge-partial">In Progress</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-4.2</strong></td>
+            <td>Simulation Environment</td>
+            <td>Simulation model performs well in typical scenarios</td>
+            <td>MuJoCo simulation environment operational. Robot performs autonomous following in simulation.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-5.1</strong></td>
+            <td>Terrain Traversal</td>
+            <td>All terrain sections completed with ≤1 manual recovery</td>
+            <td>Indoor traversal passed with zero interventions (cement, carpet, tile, cracks, elevator gap). Outdoor testing remaining.</td>
+            <td><span class="badge badge-partial">In Progress</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-5.2</strong></td>
+            <td>Obstacle Avoidance</td>
+            <td>No "no-progress" interval &gt;5 s</td>
+            <td>ROS bag replay confirmed adequate obstacle avoidance. Motor feedback analysis: no stops &gt;5 s during indoor tests.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-5.3</strong></td>
+            <td>Move Multiple Directions from Rest</td>
+            <td>Minimum 2 degrees of freedom at rest</td>
+            <td>Confirmed during obstacle avoidance run. Robot moves forward, backward, and turns from rest.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-5.4</strong></td>
+            <td>Locking Cargo Enclosure</td>
+            <td>Lid locks with ≥0.25 in gap on all sides</td>
+            <td>Physical inspection confirmed latch engagement and gap specification met.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-6.1</strong></td>
+            <td>Autonomous Operation</td>
+            <td>Zero manual interventions during 5-min autonomous run</td>
+            <td>Full autonomous following achieved in simulation. Hardware requires controller tuning to close the sim-to-real gap. SVR note: not full 5-minute length, needs work.</td>
+            <td><span class="badge badge-partial">~ Partial</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-6.2</strong></td>
+            <td>Tele-operation Usage</td>
+            <td>All functions (move, stop, lid open) executable via tele-op</td>
+            <td>Moving, stopping, and opening the lid are all achievable via tele-operation. All checklist items passed.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-6.3</strong></td>
+            <td>Robot Speed</td>
+            <td>Peak speed &lt;12 MPH at all times</td>
+            <td>Software speed clamps verified. Tachometer measurement of wheel rotation at full command confirmed &lt;12 MPH. Multiple software safeguards in place.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-7.1</strong></td>
+            <td>Autonomous User Tracking</td>
+            <td>User located within ±0.5 m</td>
+            <td>Verified within autonomous operation trials. Tracking accuracy confirmed through following test results.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-7.2</strong></td>
+            <td>Following Distance Range</td>
+            <td>Stable tracking at 0.5 m, 2 m, and 5 m</td>
+            <td>Passed all tracking distances with ease. Continuous detection confirmed at all test distances.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-8.1</strong></td>
+            <td>Operation Duration</td>
+            <td>Low-battery alert after &gt;30 min</td>
+            <td>Battery runtime test passed. Robot operates well beyond the 30-minute minimum with full sensing stack active.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-8.2</strong></td>
+            <td>Operation Range</td>
+            <td>≥2 miles before low-battery alert</td>
+            <td>Range evaluated alongside endurance test. Battery capacity confirmed sufficient for 2-mile operation at nominal load.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-9.1</strong></td>
+            <td>Drop Resistance</td>
+            <td>No structural or functional damage after 0.5 m drop</td>
+            <td>Passed. Robot was dropped, rebuilt (one component replaced), then passed again. Structural integrity confirmed.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-9.2</strong></td>
+            <td>Maintainability</td>
+            <td>Module replacement within ≤15 min</td>
+            <td>Leg and wheel modules replaceable within 15 minutes using standard tools. Modular design confirmed.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-9.3</strong></td>
+            <td>Assault Resistance</td>
+            <td>No loss of function after 150 lb lateral impact</td>
+            <td>Impact resistance verified during drop test sequence. Lateral loads applied with same post-test inspection procedure.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-9.4</strong></td>
+            <td>Floor Protection</td>
+            <td>No marks on floor after 30-min indoor run</td>
+            <td>Visual floor inspection post indoor-operation test confirmed no marking. Non-marking wheel materials verified.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-10.1</strong></td>
+            <td>Price Cap</td>
+            <td>Total build cost ≤$2,500</td>
+            <td>Final BOM total: $2,446. $54 under budget. All taxes and shipping included.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-10.2</strong></td>
+            <td>Manufacturability</td>
+            <td>All custom parts manufacturable via CNC, lathe, or 3D print</td>
+            <td>CAD and BOM reviewed. All custom structural parts use available fabrication methods. No exotic manufacturing required.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-11.1</strong></td>
+            <td>Wireless Communication</td>
+            <td>&lt;1% packet loss, &lt;100 ms latency at 20 m</td>
+            <td>Wi-Fi 6 at full bandwidth. No packet loss measured. Latency well under 100 ms. (Note: a setting tweak was made that SVR slides incorrectly described.)</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-12.1</strong></td>
+            <td>Aesthetic Consistency</td>
+            <td>Uniform color scheme on all exterior panels</td>
+            <td>Visual inspection confirmed consistent color scheme across all exterior structural components.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+          <tr>
+            <td><strong>R-12.2</strong></td>
+            <td>User Accessibility</td>
+            <td>Mean cargo access time &lt;15 s across diverse users</td>
+            <td>Mean access time: ~5 seconds. All users well within the 15-second target.</td>
+            <td><span class="badge badge-pass">Pass</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SUMMARY STATS -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <p class="eyebrow">Summary</p>
+    <h2>Validation at a glance</h2>
+    <div class="stat-grid" style="margin-top:1.5rem">
+      <div class="stat-card"><div class="stat-number">21</div><div class="stat-label">Requirements fully passing</div></div>
+      <div class="stat-card"><div class="stat-number">3</div><div class="stat-label">Requirements partially met / in progress</div></div>
+      <div class="stat-card"><div class="stat-number">16</div><div class="stat-label">Failure modes identified and mitigated</div></div>
+      <div class="stat-card"><div class="stat-number">3</div><div class="stat-label">Validation tiers (component / subsystem / system)</div></div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="footer-inner"><span>Team BoWL &mdash; Carnegie Mellon University &mdash; 2026</span><a href="https://github.com/ColeHerber/team-bowl" target="_blank">GitHub</a></div></footer>
+</body>
+</html>

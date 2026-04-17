@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Concept of Operation — Team BoWL</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Team BoWL</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Overview</a></li>
+      <li><a href="problem.html">Problem</a></li>
+      <li><a href="requirements.html">Requirements</a></li>
+      <li><a href="concept.html" class="active">Concept</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="design.html">Design</a></li>
+      <li><a href="testing.html">Testing</a></li>
+      <li><a href="report.html">Report</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <p class="eyebrow">Concept of Operation</p>
+    <h1>How the robot works</h1>
+  </div>
+</div>
+
+<!-- SYSTEM DESCRIPTION -->
+<section class="section">
+  <div class="section-inner">
+    <p class="eyebrow">System Description</p>
+    <h2>Two primary operational modes</h2>
+    <p class="lead" style="margin-top:0.5rem">The robotic system transports a payload from point A to point B while navigating unknown terrain. It contains a secure, lidded storage compartment for safe payload transport and supports two primary control modes.</p>
+    <div class="grid-2" style="align-items:start; gap:2rem; margin-top:1.5rem">
+      <div class="card">
+        <h3 style="margin-bottom:0.75rem">Autonomous Mode</h3>
+        <p style="color:var(--text-sub); font-size:0.9rem">Point B is the human user the robot is tracking and following. As the user moves, point B is dynamically updated. The robot autonomously follows using integrated perception and navigation subsystems, using real-time sensing to adapt to environmental changes, avoid obstacles, and maintain a safe following distance.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:0.75rem">Teleoperation Mode</h3>
+        <p style="color:var(--text-sub); font-size:0.9rem">Point B is determined by motion commands issued by a remote human operator. The robot interprets input commands through a control interface and adjusts its trajectory accordingly. Teleoperation allows precise manual control when autonomous navigation is not desired or possible.</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1.5rem">
+      <h3 style="margin-bottom:0.5rem">Hybrid Locomotion</h3>
+      <p style="color:var(--text-sub); font-size:0.9rem">A distinguishing feature of this system is its terrain adaptability. Unlike conventional wheeled robots, the system incorporates auxiliary leg mechanisms that provide stabilization and assistive interaction with the environment. The robot operates primarily on wheels for efficient traversal, while the legs deploy to improve stability on uneven terrain and assist in overcoming small obstacles such as curb-like features. This hybrid approach enhances mobility while maintaining efficiency and mechanical simplicity.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OPERATING MODES -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <p class="eyebrow">Operating Modes</p>
+    <h2>Six operational states</h2>
+    <p class="lead" style="margin-top:0.5rem">The robot transitions between six defined operating modes based on user commands, sensor feedback, and system state.</p>
+    <div class="grid-auto" style="margin-top:1.5rem">
+
+      <div class="mode-card">
+        <div class="mode-card-id">1</div>
+        <h3>Idle / Standby</h3>
+        <p>Robot is powered and not moving. The storage compartment is accessible. Robot awaits user command to initiate tele-op or autonomous mode.</p>
+      </div>
+
+      <div class="mode-card">
+        <div class="mode-card-id">2</div>
+        <h3>Autonomous Following</h3>
+        <p>Vision/LiDAR/IMU-based user detection and tracking. Nominal motion on wheels. Robot tracks user, avoids obstacles, and maintains following distance. (R-6.1 / R-7.1)</p>
+      </div>
+
+      <div class="mode-card">
+        <div class="mode-card-id">3</div>
+        <h3>Rough-Terrain Assist</h3>
+        <p>Upon detecting insufficient wheel progress or minor obstacles, legs are actuated to provide an auxiliary forward push to resume travel through rough terrain. (R-5.1)</p>
+      </div>
+
+      <div class="mode-card">
+        <div class="mode-card-id">4</div>
+        <h3>Tele-Operation</h3>
+        <p>User gains full tele-operative control of the robot upon request. All autonomous commands are suppressed. Operator inputs define the robot's trajectory directly. (R-6.2)</p>
+      </div>
+
+      <div class="mode-card">
+        <div class="mode-card-id">5</div>
+        <h3>Recover / Failure-Safe</h3>
+        <p>If user is lost for more than five seconds or a fault occurs, the robot halts, signals, and awaits tele-op or manual recovery. Consistent with ISO 21448 (SOTIF) and ISO 26262 fail-safe principles.</p>
+      </div>
+
+      <div class="mode-card">
+        <div class="mode-card-id">6</div>
+        <h3>Emergency Stop</h3>
+        <p>Immediate power-cut to all actuators to enter a safe state. Requires manual reset to resume regular operation. Triggered by physical button or wireless command. (R-1.1 / R-1.2)</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MODE TRANSITIONS -->
+<section class="section">
+  <div class="section-inner">
+    <p class="eyebrow">Mode Transitions</p>
+    <h2>State transition logic</h2>
+    <div class="table-scroll" style="margin-top:1.5rem">
+      <table class="data-table">
+        <thead>
+          <tr><th>From State</th><th>To State</th><th>Trigger Condition</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Autonomous (wheels)</td><td>Rough-Terrain Assist</td><td>Wheel odometry / IMU indicates slip or stall while target tracking remains valid; terrain difficulty estimate raised; legs actuate to kick over obstacle; cautious wheeled motion resumes</td></tr>
+          <tr><td>Rough-Terrain Assist</td><td>Autonomous (wheels)</td><td>Odometry confirms progress restored; IMU indicates level surface; legs retract to stowed position</td></tr>
+          <tr><td>Autonomous</td><td>Tele-Op</td><td>User requests manual control, or system triggers recovery after failed autonomous operation</td></tr>
+          <tr><td>Tele-Op</td><td>Autonomous</td><td>User explicitly requests return to autonomous follow mode via controller</td></tr>
+          <tr><td>Autonomous</td><td>Recover / Failure-Safe</td><td>User tracking lost for &gt;5 seconds with no successful reacquisition</td></tr>
+          <tr><td>Any State</td><td>Emergency Stop</td><td>Physical E-Stop button pressed or wireless E-Stop command received; immediate actuator power cut</td></tr>
+          <tr><td>Emergency Stop</td><td>Idle</td><td>Manual reset by operator after verifying safe conditions</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SEQUENCE DIAGRAMS -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <p class="eyebrow">Sequence Diagrams</p>
+    <h2>Three key operational sequences</h2>
+    <p class="lead" style="margin-top:0.5rem">These diagrams illustrate the interactions between subsystems for the three most critical operating scenarios.</p>
+    <div style="display:flex; flex-direction:column; gap:2.5rem; margin-top:1.5rem">
+
+      <div>
+        <h3 style="margin-bottom:0.75rem">Sequence A — Autonomous Follow with Rough-Terrain Detection</h3>
+        <div class="img-bordered">
+          <img src="assets/img/seq-a.png" alt="Sequence Diagram A: Autonomous Follow with Rough-Terrain Detection" />
+          <p class="img-caption">Sequence A: Autonomous Follow with Rough-Terrain Detection. Shows how the perception, decision, and locomotion subsystems interact when transitioning between smooth and rough terrain modes.</p>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:0.75rem">Sequence B — User Lost: Searching with Tele-Op Fallback</h3>
+        <div class="img-bordered">
+          <img src="assets/img/seq-b.png" alt="Sequence Diagram B: User Lost with Tele-Op Fallback" />
+          <p class="img-caption">Sequence B: User Lost — Searching with Tele-Op Fallback. Depicts the search pattern initiated when tracking is lost, and the fallback to tele-operation if reacquisition fails within 10 seconds.</p>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:0.75rem">Sequence C — Storage Access While Stationary</h3>
+        <div class="img-bordered">
+          <img src="assets/img/seq-c.png" alt="Sequence Diagram C: Storage Access While Stationary" />
+          <p class="img-caption">Sequence C: Storage Access While Stationary. Illustrates how the robot transitions to Idle mode, unlocks the motorized lid, waits for user interaction, then locks and resumes operation.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TRADE STUDIES -->
+<section class="section">
+  <div class="section-inner">
+    <p class="eyebrow">Trade Studies</p>
+    <h2>Three design decision analyses</h2>
+    <p class="lead" style="margin-top:0.5rem">Three trade studies informed the core technology choices: locomotion method, perception system, and communication protocol.</p>
+
+    <!-- MOTION METHODS -->
+    <div style="margin-top:2.5rem">
+      <h3>Trade Study 1 — Motion Method</h3>
+      <p style="color:var(--text-sub); margin-top:0.5rem; margin-bottom:1rem">A prioritization-weighted analysis comparing all major locomotion architectures. "+" indicates a wheel addition to the base mechanism (e.g., "biped+" is a biped robot with wheels).</p>
+      <div class="img-bordered">
+        <img src="assets/img/trade-study.png" alt="Motion method trade study table" />
+        <p class="img-caption">Weighted trade study across tank treads, differential drive, swerve, rocker-bogie, bicycle, quadruped, biped, unicycle, ballbot, atlas-style biped, hexapod, and snake configurations. Higher score = better fit for this application.</p>
+      </div>
+      <div class="card" style="margin-top:1rem">
+        <h4 style="margin-bottom:0.5rem">Result: Biped+ (Biped with Wheels)</h4>
+        <p style="color:var(--text-sub); font-size:0.875rem">Numerically, the most ideal choice is the biped with wheel addition ("biped+"). While legged systems offer strong traversal capability, the final design uses a wheeled base for primary locomotion due to efficiency and simplicity. Auxiliary legs are retained in a limited role to improve stability and assist in overcoming small obstacles — giving the best of both architectures.</p>
+      </div>
+    </div>
+
+    <!-- PERCEPTION -->
+    <div style="margin-top:2.5rem">
+      <h3>Trade Study 2 — Perception System</h3>
+      <p style="color:var(--text-sub); margin-top:0.5rem; margin-bottom:1rem">Five perception configurations scored across eight criteria (1–5 scale; higher is better).</p>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Configuration</th>
+              <th>Lighting</th>
+              <th>Range</th>
+              <th>Terrain</th>
+              <th>Compute</th>
+              <th>Cost</th>
+              <th>Power</th>
+              <th>Maturity</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>RGB-D only</td><td>2</td><td>3</td><td>3</td><td>4</td><td>3</td><td>3</td><td>4</td><td><strong>21</strong></td></tr>
+            <tr><td>2D LiDAR only</td><td>4</td><td>3</td><td>1</td><td>3</td><td>4</td><td>3</td><td>4</td><td><strong>22</strong></td></tr>
+            <tr><td>Stereo + IMU</td><td>3</td><td>2</td><td>2</td><td>3</td><td>3</td><td>3</td><td>4</td><td><strong>20</strong></td></tr>
+            <tr><td>RGB-D + 2D LiDAR</td><td>5</td><td>4</td><td>4</td><td>2</td><td>3</td><td>3</td><td>3</td><td><strong>24</strong></td></tr>
+            <tr style="background:var(--bg-alt)"><td><strong>RGB-D + 3D LiDAR ✓</strong></td><td>5</td><td>5</td><td>5</td><td>2</td><td>2</td><td>3</td><td>3</td><td><strong>25</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="margin-top:1rem">
+        <h4 style="margin-bottom:0.5rem">Result: RGB-D Camera + Short-Range 3D LiDAR</h4>
+        <p style="color:var(--text-sub); font-size:0.875rem">Fusing an RGB-D camera with a 3D LiDAR combines feature-rich imagery with sparse but accurate depth measurements. RGB-D cameras are sensitive to lighting changes; LiDAR depth measurements are more robust under glare and low-light conditions. A reactive tracking architecture (rather than planning-based) was chosen for its lower computational cost and faster response time in dynamic environments.</p>
+      </div>
+    </div>
+
+    <!-- COMMUNICATION PROTOCOLS -->
+    <div style="margin-top:2.5rem">
+      <h3>Trade Study 3 — Communication Protocols</h3>
+      <p style="color:var(--text-sub); margin-top:0.5rem; margin-bottom:1rem">Eight communication protocols scored across five criteria. <strong>Lower total score = better fit</strong> (ranked by cost, data rate requirements, and distance suitability for this robot concept).</p>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Protocol</th>
+              <th>Accessibility</th>
+              <th>Cost</th>
+              <th>Data Rate</th>
+              <th>Distance</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>I2C</td><td>2</td><td>1</td><td>8</td><td>9</td><td><strong>20</strong></td></tr>
+            <tr><td>SPI</td><td>3</td><td>1</td><td>4</td><td>8</td><td><strong>16</strong></td></tr>
+            <tr><td>UART</td><td>2</td><td>1</td><td>7</td><td>7</td><td><strong>17</strong></td></tr>
+            <tr><td>RS-485</td><td>4</td><td>3</td><td>5</td><td>2</td><td><strong>14</strong></td></tr>
+            <tr style="background:var(--surface-alt)"><td><strong>CAN ✓</strong></td><td>2</td><td>2</td><td>7</td><td>1</td><td><strong>12</strong></td></tr>
+            <tr style="background:var(--surface-alt)"><td><strong>Ethernet ✓</strong></td><td>3</td><td>5</td><td>1</td><td>1</td><td><strong>11</strong></td></tr>
+            <tr><td>EtherCAT</td><td>8</td><td>6</td><td>1</td><td>2</td><td><strong>17</strong></td></tr>
+            <tr><td>USB</td><td>5</td><td>3</td><td>3</td><td>6</td><td><strong>17</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="margin-top:1rem">
+        <h4 style="margin-bottom:0.5rem">Result: Ethernet for sensors, CAN for motor control</h4>
+        <p style="color:var(--text-sub); font-size:0.875rem">Ethernet and CAN are the clear leaders for this robot concept. Ethernet is used for high-bandwidth sensor data transmission (RGB-D camera, LiDAR) while CAN bus handles motor commands and feedback — matching their respective bandwidth and latency requirements. This combination aligns with ISO 10218 and ISO 26262 principles for robust, safety-critical communication.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer><div class="footer-inner"><span>Team BoWL &mdash; Carnegie Mellon University &mdash; 2026</span><a href="https://github.com/ColeHerber/team-bowl" target="_blank">GitHub</a></div></footer>
+</body>
+</html>
